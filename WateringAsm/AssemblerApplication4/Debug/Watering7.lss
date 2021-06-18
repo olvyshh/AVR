@@ -1,0 +1,3389 @@
+
+AVRASM ver. 2.2.7  C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm Mon Jun 14 01:03:17 2021
+
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m8adef.inc'
+C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm(1): Including file 'C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Defines.inc'
+C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm(2): Including file 'C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Macro.inc'
+C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm(3): Including file 'C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Display.inc'
+C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm(4): Including file 'C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Encoder.inc'
+[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m8adef.inc'
+C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm(1): Including file 'C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Defines.inc'
+C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm(2): Including file 'C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Macro.inc'
+C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm(3): Including file 'C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Display.inc'
+C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm(4): Including file 'C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Encoder.inc'
+                                 
+                                 	.include "Defines.inc"
+                                 
+                                 ;***** Created: 2011-02-09 12:03 ******* Source: ATmega8A.xml ************
+                                 ;*************************************************************************
+                                 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
+                                 ;* 
+                                 ;* Number            : AVR000
+                                 ;* File Name         : "m8Adef.inc"
+                                 ;* Title             : Register/Bit Definitions for the ATmega8A
+                                 ;* Date              : 2011-02-09
+                                 ;* Version           : 2.35
+                                 ;* Support E-mail    : avr@atmel.com
+                                 ;* Target MCU        : ATmega8A
+                                 ;* 
+                                 ;* DESCRIPTION
+                                 ;* When including this file in the assembly program file, all I/O register 
+                                 ;* names and I/O register bit names appearing in the data book can be used.
+                                 ;* In addition, the six registers forming the three data pointers X, Y and 
+                                 ;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
+                                 ;* SRAM is also defined 
+                                 ;* 
+                                 ;* The Register names are represented by their hexadecimal address.
+                                 ;* 
+                                 ;* The Register Bit names are represented by their bit number (0-7).
+                                 ;* 
+                                 ;* Please observe the difference in using the bit names with instructions
+                                 ;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
+                                 ;* (skip if bit in register set/cleared). The following example illustrates
+                                 ;* this:
+                                 ;* 
+                                 ;* in    r16,PORTB             ;read PORTB latch
+                                 ;* sbr   r16,(1<<PB6)+(1<<PB5) ;set PB6 and PB5 (use masks, not bit#)
+                                 ;* out   PORTB,r16             ;output to PORTB
+                                 ;* 
+                                 ;* in    r16,TIFR              ;read the Timer Interrupt Flag Register
+                                 ;* sbrc  r16,TOV0              ;test the overflow flag (use bit#)
+                                 ;* rjmp  TOV0_is_set           ;jump if set
+                                 ;* ...                         ;otherwise do something else
+                                 ;*************************************************************************
+                                 
+                                 #ifndef _M8ADEF_INC_
+                                 #define _M8ADEF_INC_
+                                 
+                                 
+                                 #pragma partinc 0
+                                 
+                                 ; ***** SPECIFY DEVICE ***************************************************
+                                 .device ATmega8A
+                                 #pragma AVRPART ADMIN PART_NAME ATmega8A
+                                 .equ	SIGNATURE_000	= 0x1e
+                                 .equ	SIGNATURE_001	= 0x93
+                                 .equ	SIGNATURE_002	= 0x07
+                                 
+                                 #pragma AVRPART CORE CORE_VERSION V2E
+                                 
+                                 
+                                 ; ***** I/O REGISTER DEFINITIONS *****************************************
+                                 ; NOTE:
+                                 ; Definitions marked "MEMORY MAPPED"are extended I/O ports
+                                 ; and cannot be used with IN/OUT instructions
+                                 .equ	SREG	= 0x3f
+                                 .equ	SPL	= 0x3d
+                                 .equ	SPH	= 0x3e
+                                 .equ	GICR	= 0x3b
+                                 .equ	GIFR	= 0x3a
+                                 .equ	TIMSK	= 0x39
+                                 .equ	TIFR	= 0x38
+                                 .equ	SPMCR	= 0x37
+                                 .equ	TWCR	= 0x36
+                                 .equ	MCUCR	= 0x35
+                                 .equ	MCUCSR	= 0x34
+                                 .equ	TCCR0	= 0x33
+                                 .equ	TCNT0	= 0x32
+                                 .equ	OSCCAL	= 0x31
+                                 .equ	SFIOR	= 0x30
+                                 .equ	TCCR1A	= 0x2f
+                                 .equ	TCCR1B	= 0x2e
+                                 .equ	TCNT1L	= 0x2c
+                                 .equ	TCNT1H	= 0x2d
+                                 .equ	OCR1AL	= 0x2a
+                                 .equ	OCR1AH	= 0x2b
+                                 .equ	OCR1BL	= 0x28
+                                 .equ	OCR1BH	= 0x29
+                                 .equ	ICR1L	= 0x26
+                                 .equ	ICR1H	= 0x27
+                                 .equ	TCCR2	= 0x25
+                                 .equ	TCNT2	= 0x24
+                                 .equ	OCR2	= 0x23
+                                 .equ	ASSR	= 0x22
+                                 .equ	WDTCR	= 0x21
+                                 .equ	UBRRH	= 0x20
+                                 .equ	UCSRC	= 0x20
+                                 .equ	EEARL	= 0x1e
+                                 .equ	EEARH	= 0x1f
+                                 .equ	EEDR	= 0x1d
+                                 .equ	EECR	= 0x1c
+                                 .equ	PORTB	= 0x18
+                                 .equ	DDRB	= 0x17
+                                 .equ	PINB	= 0x16
+                                 .equ	PORTC	= 0x15
+                                 .equ	DDRC	= 0x14
+                                 .equ	PINC	= 0x13
+                                 .equ	PORTD	= 0x12
+                                 .equ	DDRD	= 0x11
+                                 .equ	PIND	= 0x10
+                                 .equ	SPDR	= 0x0f
+                                 .equ	SPSR	= 0x0e
+                                 .equ	SPCR	= 0x0d
+                                 .equ	UDR	= 0x0c
+                                 .equ	UCSRA	= 0x0b
+                                 .equ	UCSRB	= 0x0a
+                                 .equ	UBRRL	= 0x09
+                                 .equ	ACSR	= 0x08
+                                 .equ	ADMUX	= 0x07
+                                 .equ	ADCSRA	= 0x06
+                                 .equ	ADCL	= 0x04
+                                 .equ	ADCH	= 0x05
+                                 .equ	TWDR	= 0x03
+                                 .equ	TWAR	= 0x02
+                                 .equ	TWSR	= 0x01
+                                 .equ	TWBR	= 0x00
+                                 
+                                 
+                                 ; ***** BIT DEFINITIONS **************************************************
+                                 
+                                 ; ***** ANALOG_COMPARATOR ************
+                                 ; SFIOR - Special Function IO Register
+                                 .equ	ACME	= 3	; Analog Comparator Multiplexer Enable
+                                 
+                                 ; ACSR - Analog Comparator Control And Status Register
+                                 .equ	ACIS0	= 0	; Analog Comparator Interrupt Mode Select bit 0
+                                 .equ	ACIS1	= 1	; Analog Comparator Interrupt Mode Select bit 1
+                                 .equ	ACIC	= 2	; Analog Comparator Input Capture Enable
+                                 .equ	ACIE	= 3	; Analog Comparator Interrupt Enable
+                                 .equ	ACI	= 4	; Analog Comparator Interrupt Flag
+                                 .equ	ACO	= 5	; Analog Compare Output
+                                 .equ	ACBG	= 6	; Analog Comparator Bandgap Select
+                                 .equ	ACD	= 7	; Analog Comparator Disable
+                                 
+                                 
+                                 ; ***** SPI **************************
+                                 ; SPDR - SPI Data Register
+                                 .equ	SPDR0	= 0	; SPI Data Register bit 0
+                                 .equ	SPDR1	= 1	; SPI Data Register bit 1
+                                 .equ	SPDR2	= 2	; SPI Data Register bit 2
+                                 .equ	SPDR3	= 3	; SPI Data Register bit 3
+                                 .equ	SPDR4	= 4	; SPI Data Register bit 4
+                                 .equ	SPDR5	= 5	; SPI Data Register bit 5
+                                 .equ	SPDR6	= 6	; SPI Data Register bit 6
+                                 .equ	SPDR7	= 7	; SPI Data Register bit 7
+                                 
+                                 ; SPSR - SPI Status Register
+                                 .equ	SPI2X	= 0	; Double SPI Speed Bit
+                                 .equ	WCOL	= 6	; Write Collision Flag
+                                 .equ	SPIF	= 7	; SPI Interrupt Flag
+                                 
+                                 ; SPCR - SPI Control Register
+                                 .equ	SPR0	= 0	; SPI Clock Rate Select 0
+                                 .equ	SPR1	= 1	; SPI Clock Rate Select 1
+                                 .equ	CPHA	= 2	; Clock Phase
+                                 .equ	CPOL	= 3	; Clock polarity
+                                 .equ	MSTR	= 4	; Master/Slave Select
+                                 .equ	DORD	= 5	; Data Order
+                                 .equ	SPE	= 6	; SPI Enable
+                                 .equ	SPIE	= 7	; SPI Interrupt Enable
+                                 
+                                 
+                                 ; ***** EXTERNAL_INTERRUPT ***********
+                                 ; GICR - General Interrupt Control Register
+                                 .equ	GIMSK	= GICR	; For compatibility
+                                 .equ	IVCE	= 0	; Interrupt Vector Change Enable
+                                 .equ	IVSEL	= 1	; Interrupt Vector Select
+                                 .equ	INT0	= 6	; External Interrupt Request 0 Enable
+                                 .equ	INT1	= 7	; External Interrupt Request 1 Enable
+                                 
+                                 ; GIFR - General Interrupt Flag Register
+                                 .equ	INTF0	= 6	; External Interrupt Flag 0
+                                 .equ	INTF1	= 7	; External Interrupt Flag 1
+                                 
+                                 ; MCUCR - MCU Control Register
+                                 .equ	ISC00	= 0	; Interrupt Sense Control 0 Bit 0
+                                 .equ	ISC01	= 1	; Interrupt Sense Control 0 Bit 1
+                                 .equ	ISC10	= 2	; Interrupt Sense Control 1 Bit 0
+                                 .equ	ISC11	= 3	; Interrupt Sense Control 1 Bit 1
+                                 
+                                 
+                                 ; ***** TIMER_COUNTER_0 **************
+                                 ; TIMSK - Timer/Counter Interrupt Mask Register
+                                 .equ	TOIE0	= 0	; Timer/Counter0 Overflow Interrupt Enable
+                                 
+                                 ; TIFR - Timer/Counter Interrupt Flag register
+                                 .equ	TOV0	= 0	; Timer/Counter0 Overflow Flag
+                                 
+                                 ; TCCR0 - Timer/Counter0 Control Register
+                                 .equ	CS00	= 0	; Clock Select0 bit 0
+                                 .equ	CS01	= 1	; Clock Select0 bit 1
+                                 .equ	CS02	= 2	; Clock Select0 bit 2
+                                 
+                                 ; TCNT0 - Timer Counter 0
+                                 .equ	TCNT00	= 0	; Timer Counter 0 bit 0
+                                 .equ	TCNT01	= 1	; Timer Counter 0 bit 1
+                                 .equ	TCNT02	= 2	; Timer Counter 0 bit 2
+                                 .equ	TCNT03	= 3	; Timer Counter 0 bit 3
+                                 .equ	TCNT04	= 4	; Timer Counter 0 bit 4
+                                 .equ	TCNT05	= 5	; Timer Counter 0 bit 5
+                                 .equ	TCNT06	= 6	; Timer Counter 0 bit 6
+                                 .equ	TCNT07	= 7	; Timer Counter 0 bit 7
+                                 
+                                 
+                                 ; ***** TIMER_COUNTER_1 **************
+                                 ; TIMSK - Timer/Counter Interrupt Mask Register
+                                 .equ	TOIE1	= 2	; Timer/Counter1 Overflow Interrupt Enable
+                                 .equ	OCIE1B	= 3	; Timer/Counter1 Output CompareB Match Interrupt Enable
+                                 .equ	OCIE1A	= 4	; Timer/Counter1 Output CompareA Match Interrupt Enable
+                                 .equ	TICIE1	= 5	; Timer/Counter1 Input Capture Interrupt Enable
+                                 
+                                 ; TIFR - Timer/Counter Interrupt Flag register
+                                 .equ	TOV1	= 2	; Timer/Counter1 Overflow Flag
+                                 .equ	OCF1B	= 3	; Output Compare Flag 1B
+                                 .equ	OCF1A	= 4	; Output Compare Flag 1A
+                                 .equ	ICF1	= 5	; Input Capture Flag 1
+                                 
+                                 ; TCCR1A - Timer/Counter1 Control Register A
+                                 .equ	WGM10	= 0	; Waveform Generation Mode
+                                 .equ	PWM10	= WGM10	; For compatibility
+                                 .equ	WGM11	= 1	; Waveform Generation Mode
+                                 .equ	PWM11	= WGM11	; For compatibility
+                                 .equ	FOC1B	= 2	; Force Output Compare 1B
+                                 .equ	FOC1A	= 3	; Force Output Compare 1A
+                                 .equ	COM1B0	= 4	; Compare Output Mode 1B, bit 0
+                                 .equ	COM1B1	= 5	; Compare Output Mode 1B, bit 1
+                                 .equ	COM1A0	= 6	; Compare Ouput Mode 1A, bit 0
+                                 .equ	COM1A1	= 7	; Compare Output Mode 1A, bit 1
+                                 
+                                 ; TCCR1B - Timer/Counter1 Control Register B
+                                 .equ	CS10	= 0	; Prescaler source of Timer/Counter 1
+                                 .equ	CS11	= 1	; Prescaler source of Timer/Counter 1
+                                 .equ	CS12	= 2	; Prescaler source of Timer/Counter 1
+                                 .equ	WGM12	= 3	; Waveform Generation Mode
+                                 .equ	CTC10	= WGM12	; For compatibility
+                                 .equ	CTC1	= WGM12	; For compatibility
+                                 .equ	WGM13	= 4	; Waveform Generation Mode
+                                 .equ	CTC11	= WGM13	; For compatibility
+                                 .equ	ICES1	= 6	; Input Capture 1 Edge Select
+                                 .equ	ICNC1	= 7	; Input Capture 1 Noise Canceler
+                                 
+                                 
+                                 ; ***** TIMER_COUNTER_2 **************
+                                 ; TIMSK - Timer/Counter Interrupt Mask register
+                                 .equ	TOIE2	= 6	; Timer/Counter2 Overflow Interrupt Enable
+                                 .equ	OCIE2	= 7	; Timer/Counter2 Output Compare Match Interrupt Enable
+                                 
+                                 ; TIFR - Timer/Counter Interrupt Flag Register
+                                 .equ	TOV2	= 6	; Timer/Counter2 Overflow Flag
+                                 .equ	OCF2	= 7	; Output Compare Flag 2
+                                 
+                                 ; TCCR2 - Timer/Counter2 Control Register
+                                 .equ	CS20	= 0	; Clock Select bit 0
+                                 .equ	CS21	= 1	; Clock Select bit 1
+                                 .equ	CS22	= 2	; Clock Select bit 2
+                                 .equ	WGM21	= 3	; Waveform Generation Mode
+                                 .equ	CTC2	= WGM21	; For compatibility
+                                 .equ	COM20	= 4	; Compare Output Mode bit 0
+                                 .equ	COM21	= 5	; Compare Output Mode bit 1
+                                 .equ	WGM20	= 6	; Waveform Genration Mode
+                                 .equ	PWM2	= WGM20	; For compatibility
+                                 .equ	FOC2	= 7	; Force Output Compare
+                                 
+                                 ; TCNT2 - Timer/Counter2
+                                 .equ	TCNT2_0	= 0	; Timer/Counter 2 bit 0
+                                 .equ	TCNT2_1	= 1	; Timer/Counter 2 bit 1
+                                 .equ	TCNT2_2	= 2	; Timer/Counter 2 bit 2
+                                 .equ	TCNT2_3	= 3	; Timer/Counter 2 bit 3
+                                 .equ	TCNT2_4	= 4	; Timer/Counter 2 bit 4
+                                 .equ	TCNT2_5	= 5	; Timer/Counter 2 bit 5
+                                 .equ	TCNT2_6	= 6	; Timer/Counter 2 bit 6
+                                 .equ	TCNT2_7	= 7	; Timer/Counter 2 bit 7
+                                 
+                                 ; OCR2 - Timer/Counter2 Output Compare Register
+                                 .equ	OCR2_0	= 0	; Timer/Counter2 Output Compare Register Bit 0
+                                 .equ	OCR2_1	= 1	; Timer/Counter2 Output Compare Register Bit 1
+                                 .equ	OCR2_2	= 2	; Timer/Counter2 Output Compare Register Bit 2
+                                 .equ	OCR2_3	= 3	; Timer/Counter2 Output Compare Register Bit 3
+                                 .equ	OCR2_4	= 4	; Timer/Counter2 Output Compare Register Bit 4
+                                 .equ	OCR2_5	= 5	; Timer/Counter2 Output Compare Register Bit 5
+                                 .equ	OCR2_6	= 6	; Timer/Counter2 Output Compare Register Bit 6
+                                 .equ	OCR2_7	= 7	; Timer/Counter2 Output Compare Register Bit 7
+                                 
+                                 ; ASSR - Asynchronous Status Register
+                                 .equ	TCR2UB	= 0	; Timer/counter Control Register2 Update Busy
+                                 .equ	OCR2UB	= 1	; Output Compare Register2 Update Busy
+                                 .equ	TCN2UB	= 2	; Timer/Counter2 Update Busy
+                                 .equ	AS2	= 3	; Asynchronous Timer/counter2
+                                 
+                                 ; SFIOR - Special Function IO Register
+                                 .equ	PSR2	= 1	; Prescaler Reset Timer/Counter2
+                                 
+                                 
+                                 ; ***** USART ************************
+                                 ; UDR - USART I/O Data Register
+                                 .equ	UDR0	= 0	; USART I/O Data Register bit 0
+                                 .equ	UDR1	= 1	; USART I/O Data Register bit 1
+                                 .equ	UDR2	= 2	; USART I/O Data Register bit 2
+                                 .equ	UDR3	= 3	; USART I/O Data Register bit 3
+                                 .equ	UDR4	= 4	; USART I/O Data Register bit 4
+                                 .equ	UDR5	= 5	; USART I/O Data Register bit 5
+                                 .equ	UDR6	= 6	; USART I/O Data Register bit 6
+                                 .equ	UDR7	= 7	; USART I/O Data Register bit 7
+                                 
+                                 ; UCSRA - USART Control and Status Register A
+                                 .equ	USR	= UCSRA	; For compatibility
+                                 .equ	MPCM	= 0	; Multi-processor Communication Mode
+                                 .equ	U2X	= 1	; Double the USART transmission speed
+                                 .equ	UPE	= 2	; Parity Error
+                                 .equ	PE	= UPE	; For compatibility
+                                 .equ	DOR	= 3	; Data overRun
+                                 .equ	FE	= 4	; Framing Error
+                                 .equ	UDRE	= 5	; USART Data Register Empty
+                                 .equ	TXC	= 6	; USART Transmitt Complete
+                                 .equ	RXC	= 7	; USART Receive Complete
+                                 
+                                 ; UCSRB - USART Control and Status Register B
+                                 .equ	UCR	= UCSRB	; For compatibility
+                                 .equ	TXB8	= 0	; Transmit Data Bit 8
+                                 .equ	RXB8	= 1	; Receive Data Bit 8
+                                 .equ	UCSZ2	= 2	; Character Size
+                                 .equ	CHR9	= UCSZ2	; For compatibility
+                                 .equ	TXEN	= 3	; Transmitter Enable
+                                 .equ	RXEN	= 4	; Receiver Enable
+                                 .equ	UDRIE	= 5	; USART Data register Empty Interrupt Enable
+                                 .equ	TXCIE	= 6	; TX Complete Interrupt Enable
+                                 .equ	RXCIE	= 7	; RX Complete Interrupt Enable
+                                 
+                                 ; UCSRC - USART Control and Status Register C
+                                 .equ	UCPOL	= 0	; Clock Polarity
+                                 .equ	UCSZ0	= 1	; Character Size
+                                 .equ	UCSZ1	= 2	; Character Size
+                                 .equ	USBS	= 3	; Stop Bit Select
+                                 .equ	UPM0	= 4	; Parity Mode Bit 0
+                                 .equ	UPM1	= 5	; Parity Mode Bit 1
+                                 .equ	UMSEL	= 6	; USART Mode Select
+                                 .equ	URSEL	= 7	; Register Select
+                                 
+                                 .equ	UBRRHI	= UBRRH	; For compatibility
+                                 
+                                 ; ***** TWI **************************
+                                 ; TWBR - TWI Bit Rate register
+                                 .equ	I2BR	= TWBR	; For compatibility
+                                 .equ	TWBR0	= 0	; 
+                                 .equ	TWBR1	= 1	; 
+                                 .equ	TWBR2	= 2	; 
+                                 .equ	TWBR3	= 3	; 
+                                 .equ	TWBR4	= 4	; 
+                                 .equ	TWBR5	= 5	; 
+                                 .equ	TWBR6	= 6	; 
+                                 .equ	TWBR7	= 7	; 
+                                 
+                                 ; TWCR - TWI Control Register
+                                 .equ	I2CR	= TWCR	; For compatibility
+                                 .equ	TWIE	= 0	; TWI Interrupt Enable
+                                 .equ	I2IE	= TWIE	; For compatibility
+                                 .equ	TWEN	= 2	; TWI Enable Bit
+                                 .equ	I2EN	= TWEN	; For compatibility
+                                 .equ	ENI2C	= TWEN	; For compatibility
+                                 .equ	TWWC	= 3	; TWI Write Collition Flag
+                                 .equ	I2WC	= TWWC	; For compatibility
+                                 .equ	TWSTO	= 4	; TWI Stop Condition Bit
+                                 .equ	I2STO	= TWSTO	; For compatibility
+                                 .equ	TWSTA	= 5	; TWI Start Condition Bit
+                                 .equ	I2STA	= TWSTA	; For compatibility
+                                 .equ	TWEA	= 6	; TWI Enable Acknowledge Bit
+                                 .equ	I2EA	= TWEA	; For compatibility
+                                 .equ	TWINT	= 7	; TWI Interrupt Flag
+                                 .equ	I2INT	= TWINT	; For compatibility
+                                 
+                                 ; TWSR - TWI Status Register
+                                 .equ	I2SR	= TWSR	; For compatibility
+                                 .equ	TWPS0	= 0	; TWI Prescaler
+                                 .equ	TWS0	= TWPS0	; For compatibility
+                                 .equ	I2GCE	= TWPS0	; For compatibility
+                                 .equ	TWPS1	= 1	; TWI Prescaler
+                                 .equ	TWS1	= TWPS1	; For compatibility
+                                 .equ	TWS3	= 3	; TWI Status
+                                 .equ	I2S3	= TWS3	; For compatibility
+                                 .equ	TWS4	= 4	; TWI Status
+                                 .equ	I2S4	= TWS4	; For compatibility
+                                 .equ	TWS5	= 5	; TWI Status
+                                 .equ	I2S5	= TWS5	; For compatibility
+                                 .equ	TWS6	= 6	; TWI Status
+                                 .equ	I2S6	= TWS6	; For compatibility
+                                 .equ	TWS7	= 7	; TWI Status
+                                 .equ	I2S7	= TWS7	; For compatibility
+                                 
+                                 ; TWDR - TWI Data register
+                                 .equ	I2DR	= TWDR	; For compatibility
+                                 .equ	TWD0	= 0	; TWI Data Register Bit 0
+                                 .equ	TWD1	= 1	; TWI Data Register Bit 1
+                                 .equ	TWD2	= 2	; TWI Data Register Bit 2
+                                 .equ	TWD3	= 3	; TWI Data Register Bit 3
+                                 .equ	TWD4	= 4	; TWI Data Register Bit 4
+                                 .equ	TWD5	= 5	; TWI Data Register Bit 5
+                                 .equ	TWD6	= 6	; TWI Data Register Bit 6
+                                 .equ	TWD7	= 7	; TWI Data Register Bit 7
+                                 
+                                 ; TWAR - TWI (Slave) Address register
+                                 .equ	I2AR	= TWAR	; For compatibility
+                                 .equ	TWGCE	= 0	; TWI General Call Recognition Enable Bit
+                                 .equ	TWA0	= 1	; TWI (Slave) Address register Bit 0
+                                 .equ	TWA1	= 2	; TWI (Slave) Address register Bit 1
+                                 .equ	TWA2	= 3	; TWI (Slave) Address register Bit 2
+                                 .equ	TWA3	= 4	; TWI (Slave) Address register Bit 3
+                                 .equ	TWA4	= 5	; TWI (Slave) Address register Bit 4
+                                 .equ	TWA5	= 6	; TWI (Slave) Address register Bit 5
+                                 .equ	TWA6	= 7	; TWI (Slave) Address register Bit 6
+                                 
+                                 
+                                 ; ***** WATCHDOG *********************
+                                 ; WDTCR - Watchdog Timer Control Register
+                                 .equ	WDTCSR	= WDTCR	; For compatibility
+                                 .equ	WDP0	= 0	; Watch Dog Timer Prescaler bit 0
+                                 .equ	WDP1	= 1	; Watch Dog Timer Prescaler bit 1
+                                 .equ	WDP2	= 2	; Watch Dog Timer Prescaler bit 2
+                                 .equ	WDE	= 3	; Watch Dog Enable
+                                 .equ	WDCE	= 4	; Watchdog Change Enable
+                                 .equ	WDTOE	= WDCE	; For compatibility
+                                 
+                                 
+                                 ; ***** PORTB ************************
+                                 ; PORTB - Port B Data Register
+                                 .equ	PORTB0	= 0	; Port B Data Register bit 0
+                                 .equ	PB0	= 0	; For compatibility
+                                 .equ	PORTB1	= 1	; Port B Data Register bit 1
+                                 .equ	PB1	= 1	; For compatibility
+                                 .equ	PORTB2	= 2	; Port B Data Register bit 2
+                                 .equ	PB2	= 2	; For compatibility
+                                 .equ	PORTB3	= 3	; Port B Data Register bit 3
+                                 .equ	PB3	= 3	; For compatibility
+                                 .equ	PORTB4	= 4	; Port B Data Register bit 4
+                                 .equ	PB4	= 4	; For compatibility
+                                 .equ	PORTB5	= 5	; Port B Data Register bit 5
+                                 .equ	PB5	= 5	; For compatibility
+                                 .equ	PORTB6	= 6	; Port B Data Register bit 6
+                                 .equ	PB6	= 6	; For compatibility
+                                 .equ	PORTB7	= 7	; Port B Data Register bit 7
+                                 .equ	PB7	= 7	; For compatibility
+                                 
+                                 ; DDRB - Port B Data Direction Register
+                                 .equ	DDB0	= 0	; Port B Data Direction Register bit 0
+                                 .equ	DDB1	= 1	; Port B Data Direction Register bit 1
+                                 .equ	DDB2	= 2	; Port B Data Direction Register bit 2
+                                 .equ	DDB3	= 3	; Port B Data Direction Register bit 3
+                                 .equ	DDB4	= 4	; Port B Data Direction Register bit 4
+                                 .equ	DDB5	= 5	; Port B Data Direction Register bit 5
+                                 .equ	DDB6	= 6	; Port B Data Direction Register bit 6
+                                 .equ	DDB7	= 7	; Port B Data Direction Register bit 7
+                                 
+                                 ; PINB - Port B Input Pins
+                                 .equ	PINB0	= 0	; Port B Input Pins bit 0
+                                 .equ	PINB1	= 1	; Port B Input Pins bit 1
+                                 .equ	PINB2	= 2	; Port B Input Pins bit 2
+                                 .equ	PINB3	= 3	; Port B Input Pins bit 3
+                                 .equ	PINB4	= 4	; Port B Input Pins bit 4
+                                 .equ	PINB5	= 5	; Port B Input Pins bit 5
+                                 .equ	PINB6	= 6	; Port B Input Pins bit 6
+                                 .equ	PINB7	= 7	; Port B Input Pins bit 7
+                                 
+                                 
+                                 ; ***** PORTC ************************
+                                 ; PORTC - Port C Data Register
+                                 .equ	PORTC0	= 0	; Port C Data Register bit 0
+                                 .equ	PC0	= 0	; For compatibility
+                                 .equ	PORTC1	= 1	; Port C Data Register bit 1
+                                 .equ	PC1	= 1	; For compatibility
+                                 .equ	PORTC2	= 2	; Port C Data Register bit 2
+                                 .equ	PC2	= 2	; For compatibility
+                                 .equ	PORTC3	= 3	; Port C Data Register bit 3
+                                 .equ	PC3	= 3	; For compatibility
+                                 .equ	PORTC4	= 4	; Port C Data Register bit 4
+                                 .equ	PC4	= 4	; For compatibility
+                                 .equ	PORTC5	= 5	; Port C Data Register bit 5
+                                 .equ	PC5	= 5	; For compatibility
+                                 .equ	PORTC6	= 6	; Port C Data Register bit 6
+                                 .equ	PC6	= 6	; For compatibility
+                                 
+                                 ; DDRC - Port C Data Direction Register
+                                 .equ	DDC0	= 0	; Port C Data Direction Register bit 0
+                                 .equ	DDC1	= 1	; Port C Data Direction Register bit 1
+                                 .equ	DDC2	= 2	; Port C Data Direction Register bit 2
+                                 .equ	DDC3	= 3	; Port C Data Direction Register bit 3
+                                 .equ	DDC4	= 4	; Port C Data Direction Register bit 4
+                                 .equ	DDC5	= 5	; Port C Data Direction Register bit 5
+                                 .equ	DDC6	= 6	; Port C Data Direction Register bit 6
+                                 
+                                 ; PINC - Port C Input Pins
+                                 .equ	PINC0	= 0	; Port C Input Pins bit 0
+                                 .equ	PINC1	= 1	; Port C Input Pins bit 1
+                                 .equ	PINC2	= 2	; Port C Input Pins bit 2
+                                 .equ	PINC3	= 3	; Port C Input Pins bit 3
+                                 .equ	PINC4	= 4	; Port C Input Pins bit 4
+                                 .equ	PINC5	= 5	; Port C Input Pins bit 5
+                                 .equ	PINC6	= 6	; Port C Input Pins bit 6
+                                 
+                                 
+                                 ; ***** PORTD ************************
+                                 ; PORTD - Port D Data Register
+                                 .equ	PORTD0	= 0	; Port D Data Register bit 0
+                                 .equ	PD0	= 0	; For compatibility
+                                 .equ	PORTD1	= 1	; Port D Data Register bit 1
+                                 .equ	PD1	= 1	; For compatibility
+                                 .equ	PORTD2	= 2	; Port D Data Register bit 2
+                                 .equ	PD2	= 2	; For compatibility
+                                 .equ	PORTD3	= 3	; Port D Data Register bit 3
+                                 .equ	PD3	= 3	; For compatibility
+                                 .equ	PORTD4	= 4	; Port D Data Register bit 4
+                                 .equ	PD4	= 4	; For compatibility
+                                 .equ	PORTD5	= 5	; Port D Data Register bit 5
+                                 .equ	PD5	= 5	; For compatibility
+                                 .equ	PORTD6	= 6	; Port D Data Register bit 6
+                                 .equ	PD6	= 6	; For compatibility
+                                 .equ	PORTD7	= 7	; Port D Data Register bit 7
+                                 .equ	PD7	= 7	; For compatibility
+                                 
+                                 ; DDRD - Port D Data Direction Register
+                                 .equ	DDD0	= 0	; Port D Data Direction Register bit 0
+                                 .equ	DDD1	= 1	; Port D Data Direction Register bit 1
+                                 .equ	DDD2	= 2	; Port D Data Direction Register bit 2
+                                 .equ	DDD3	= 3	; Port D Data Direction Register bit 3
+                                 .equ	DDD4	= 4	; Port D Data Direction Register bit 4
+                                 .equ	DDD5	= 5	; Port D Data Direction Register bit 5
+                                 .equ	DDD6	= 6	; Port D Data Direction Register bit 6
+                                 .equ	DDD7	= 7	; Port D Data Direction Register bit 7
+                                 
+                                 ; PIND - Port D Input Pins
+                                 .equ	PIND0	= 0	; Port D Input Pins bit 0
+                                 .equ	PIND1	= 1	; Port D Input Pins bit 1
+                                 .equ	PIND2	= 2	; Port D Input Pins bit 2
+                                 .equ	PIND3	= 3	; Port D Input Pins bit 3
+                                 .equ	PIND4	= 4	; Port D Input Pins bit 4
+                                 .equ	PIND5	= 5	; Port D Input Pins bit 5
+                                 .equ	PIND6	= 6	; Port D Input Pins bit 6
+                                 .equ	PIND7	= 7	; Port D Input Pins bit 7
+                                 
+                                 
+                                 ; ***** EEPROM ***********************
+                                 ; EEDR - EEPROM Data Register
+                                 .equ	EEDR0	= 0	; EEPROM Data Register bit 0
+                                 .equ	EEDR1	= 1	; EEPROM Data Register bit 1
+                                 .equ	EEDR2	= 2	; EEPROM Data Register bit 2
+                                 .equ	EEDR3	= 3	; EEPROM Data Register bit 3
+                                 .equ	EEDR4	= 4	; EEPROM Data Register bit 4
+                                 .equ	EEDR5	= 5	; EEPROM Data Register bit 5
+                                 .equ	EEDR6	= 6	; EEPROM Data Register bit 6
+                                 .equ	EEDR7	= 7	; EEPROM Data Register bit 7
+                                 
+                                 ; EECR - EEPROM Control Register
+                                 .equ	EERE	= 0	; EEPROM Read Enable
+                                 .equ	EEWE	= 1	; EEPROM Write Enable
+                                 .equ	EEMWE	= 2	; EEPROM Master Write Enable
+                                 .equ	EEWEE	= EEMWE	; For compatibility
+                                 .equ	EERIE	= 3	; EEPROM Ready Interrupt Enable
+                                 
+                                 
+                                 ; ***** CPU **************************
+                                 ; SREG - Status Register
+                                 .equ	SREG_C	= 0	; Carry Flag
+                                 .equ	SREG_Z	= 1	; Zero Flag
+                                 .equ	SREG_N	= 2	; Negative Flag
+                                 .equ	SREG_V	= 3	; Two's Complement Overflow Flag
+                                 .equ	SREG_S	= 4	; Sign Bit
+                                 .equ	SREG_H	= 5	; Half Carry Flag
+                                 .equ	SREG_T	= 6	; Bit Copy Storage
+                                 .equ	SREG_I	= 7	; Global Interrupt Enable
+                                 
+                                 ; MCUCR - MCU Control Register
+                                 ;.equ	ISC00	= 0	; Interrupt Sense Control 0 Bit 0
+                                 ;.equ	ISC01	= 1	; Interrupt Sense Control 0 Bit 1
+                                 ;.equ	ISC10	= 2	; Interrupt Sense Control 1 Bit 0
+                                 ;.equ	ISC11	= 3	; Interrupt Sense Control 1 Bit 1
+                                 .equ	SM0	= 4	; Sleep Mode Select
+                                 .equ	SM1	= 5	; Sleep Mode Select
+                                 .equ	SM2	= 6	; Sleep Mode Select
+                                 .equ	SE	= 7	; Sleep Enable
+                                 
+                                 ; MCUCSR - MCU Control And Status Register
+                                 .equ	MCUSR	= MCUCSR	; For compatibility
+                                 .equ	PORF	= 0	; Power-on reset flag
+                                 .equ	EXTRF	= 1	; External Reset Flag
+                                 .equ	BORF	= 2	; Brown-out Reset Flag
+                                 .equ	WDRF	= 3	; Watchdog Reset Flag
+                                 
+                                 ; OSCCAL - Oscillator Calibration Value
+                                 .equ	CAL0	= 0	; Oscillator Calibration Value Bit0
+                                 .equ	CAL1	= 1	; Oscillator Calibration Value Bit1
+                                 .equ	CAL2	= 2	; Oscillator Calibration Value Bit2
+                                 .equ	CAL3	= 3	; Oscillator Calibration Value Bit3
+                                 .equ	CAL4	= 4	; Oscillator Calibration Value Bit4
+                                 .equ	CAL5	= 5	; Oscillator Calibration Value Bit5
+                                 .equ	CAL6	= 6	; Oscillator Calibration Value Bit6
+                                 .equ	CAL7	= 7	; Oscillator Calibration Value Bit7
+                                 
+                                 ; SPMCR - Store Program Memory Control Register
+                                 .equ	SPMEN	= 0	; Store Program Memory Enable
+                                 .equ	PGERS	= 1	; Page Erase
+                                 .equ	PGWRT	= 2	; Page Write
+                                 .equ	BLBSET	= 3	; Boot Lock Bit Set
+                                 .equ	RWWSRE	= 4	; Read-While-Write Section Read Enable
+                                 .equ	RWWSB	= 6	; Read-While-Write Section Busy
+                                 .equ	SPMIE	= 7	; SPM Interrupt Enable
+                                 
+                                 ; SFIOR - Special Function IO Register
+                                 .equ	PSR10	= 0	; Prescaler Reset Timer/Counter1 and Timer/Counter0
+                                 .equ	PUD	= 2	; Pull-up Disable
+                                 .equ	ADHSM	= 4	; ADC High Speed Mode
+                                 
+                                 
+                                 ; ***** AD_CONVERTER *****************
+                                 ; ADMUX - The ADC multiplexer Selection Register
+                                 .equ	MUX0	= 0	; Analog Channel and Gain Selection Bits
+                                 .equ	MUX1	= 1	; Analog Channel and Gain Selection Bits
+                                 .equ	MUX2	= 2	; Analog Channel and Gain Selection Bits
+                                 .equ	MUX3	= 3	; Analog Channel and Gain Selection Bits
+                                 .equ	ADLAR	= 5	; Left Adjust Result
+                                 .equ	REFS0	= 6	; Reference Selection Bit 0
+                                 .equ	REFS1	= 7	; Reference Selection Bit 1
+                                 
+                                 ; ADCSRA - The ADC Control and Status register
+                                 .equ	ADCSR	= ADCSRA	; For compatibility
+                                 .equ	ADPS0	= 0	; ADC  Prescaler Select Bits
+                                 .equ	ADPS1	= 1	; ADC  Prescaler Select Bits
+                                 .equ	ADPS2	= 2	; ADC  Prescaler Select Bits
+                                 .equ	ADIE	= 3	; ADC Interrupt Enable
+                                 .equ	ADIF	= 4	; ADC Interrupt Flag
+                                 .equ	ADFR	= 5	; ADC  Free Running Select
+                                 .equ	ADSC	= 6	; ADC Start Conversion
+                                 .equ	ADEN	= 7	; ADC Enable
+                                 
+                                 
+                                 
+                                 ; ***** LOCKSBITS ********************************************************
+                                 .equ	LB1	= 0	; Lock bit
+                                 .equ	LB2	= 1	; Lock bit
+                                 .equ	BLB01	= 2	; Boot Lock bit
+                                 .equ	BLB02	= 3	; Boot Lock bit
+                                 .equ	BLB11	= 4	; Boot lock bit
+                                 .equ	BLB12	= 5	; Boot lock bit
+                                 
+                                 
+                                 ; ***** FUSES ************************************************************
+                                 ; LOW fuse bits
+                                 .equ	CKSEL0	= 0	; Select Clock Source
+                                 .equ	CKSEL1	= 1	; Select Clock Source
+                                 .equ	CKSEL2	= 2	; Select Clock Source
+                                 .equ	CKSEL3	= 3	; Select Clock Source
+                                 .equ	SUT0	= 4	; Select start-up time
+                                 .equ	SUT1	= 5	; Select start-up time
+                                 .equ	BODEN	= 6	; Brown out detector enable
+                                 .equ	BODLEVEL	= 7	; Brown out detector trigger level
+                                 
+                                 ; HIGH fuse bits
+                                 .equ	BOOTRST	= 0	; Select Reset Vector
+                                 .equ	BOOTSZ0	= 1	; Select Boot Size
+                                 .equ	BOOTSZ1	= 2	; Select Boot Size
+                                 .equ	EESAVE	= 3	; EEPROM memory is preserved through chip erase
+                                 .equ	CKOPT	= 4	; Oscillator Options
+                                 .equ	SPIEN	= 5	; Enable Serial programming and Data Downloading
+                                 .equ	WTDON	= 6	; Enable watchdog
+                                 .equ	RSTDISBL	= 7	; Disable reset
+                                 
+                                 
+                                 
+                                 ; ***** CPU REGISTER DEFINITIONS *****************************************
+                                 .def	XH	= r27
+                                 .def	XL	= r26
+                                 .def	YH	= r29
+                                 .def	YL	= r28
+                                 .def	ZH	= r31
+                                 .def	ZL	= r30
+                                 
+                                 
+                                 
+                                 ; ***** DATA MEMORY DECLARATIONS *****************************************
+                                 .equ	FLASHEND	= 0x0fff	; Note: Word address
+                                 .equ	IOEND	= 0x003f
+                                 .equ	SRAM_START	= 0x0060
+                                 .equ	SRAM_SIZE	= 1024
+                                 .equ	RAMEND	= 0x045f
+                                 .equ	XRAMEND	= 0x0000
+                                 .equ	E2END	= 0x01ff
+                                 .equ	EEPROMEND	= 0x01ff
+                                 .equ	EEADRBITS	= 9
+                                 #pragma AVRPART MEMORY PROG_FLASH 8192
+                                 #pragma AVRPART MEMORY EEPROM 512
+                                 #pragma AVRPART MEMORY INT_SRAM SIZE 1024
+                                 #pragma AVRPART MEMORY INT_SRAM START_ADDR 0x60
+                                 
+                                 
+                                 
+                                 ; ***** BOOTLOADER DECLARATIONS ******************************************
+                                 .equ	NRWW_START_ADDR	= 0xc00
+                                 .equ	NRWW_STOP_ADDR	= 0xfff
+                                 .equ	RWW_START_ADDR	= 0x0
+                                 .equ	RWW_STOP_ADDR	= 0xbff
+                                 .equ	PAGESIZE	= 32
+                                 .equ	FIRSTBOOTSTART	= 0xf80
+                                 .equ	SECONDBOOTSTART	= 0xf00
+                                 .equ	THIRDBOOTSTART	= 0xe00
+                                 .equ	FOURTHBOOTSTART	= 0xc00
+                                 .equ	SMALLBOOTSTART	= FIRSTBOOTSTART
+                                 .equ	LARGEBOOTSTART	= FOURTHBOOTSTART
+                                 
+                                 
+                                 
+                                 ; ***** INTERRUPT VECTORS ************************************************
+                                 .equ	INT0addr	= 0x0001	; External Interrupt Request 0
+                                 .equ	INT1addr	= 0x0002	; External Interrupt Request 1
+                                 .equ	OC2addr	= 0x0003	; Timer/Counter2 Compare Match
+                                 .equ	OVF2addr	= 0x0004	; Timer/Counter2 Overflow
+                                 .equ	ICP1addr	= 0x0005	; Timer/Counter1 Capture Event
+                                 .equ	OC1Aaddr	= 0x0006	; Timer/Counter1 Compare Match A
+                                 .equ	OC1Baddr	= 0x0007	; Timer/Counter1 Compare Match B
+                                 .equ	OVF1addr	= 0x0008	; Timer/Counter1 Overflow
+                                 .equ	OVF0addr	= 0x0009	; Timer/Counter0 Overflow
+                                 .equ	SPIaddr	= 0x000a	; Serial Transfer Complete
+                                 .equ	URXCaddr	= 0x000b	; USART, Rx Complete
+                                 .equ	UDREaddr	= 0x000c	; USART Data Register Empty
+                                 .equ	UTXCaddr	= 0x000d	; USART, Tx Complete
+                                 .equ	ADCCaddr	= 0x000e	; ADC Conversion Complete
+                                 .equ	ERDYaddr	= 0x000f	; EEPROM Ready
+                                 .equ	ACIaddr	= 0x0010	; Analog Comparator
+                                 .equ	TWIaddr	= 0x0011	; 2-wire Serial Interface
+                                 .equ	SPMRaddr	= 0x0012	; Store Program Memory Ready
+                                 
+                                 .equ	INT_VECTORS_SIZE	= 19	; size in words
+                                 
+                                 #pragma AVRPART CORE INSTRUCTIONS_NOT_SUPPORTED break
+                                 
+                                 #endif  /* _M8ADEF_INC_ */
+                                 
+                                 ; ***** END OF FILE ******************************************************
+                                 
+                                 
+                                 	;0b-DispRefresh
+                                 	;1b-TurnLeft
+                                 	;2b-TurnRighr
+                                 	;3b-ButtonClick
+                                 	;4b-d1First
+                                 	;5b-d2First
+                                 	;6b-ButtonWasOn
+                                 	;7b- second enc pin ready	
+                                 
+                                 
+                                 	.equ DispRefreshTime=100;ms
+                                 	.equ ButtonWaitTime=100;ms
+                                 	.equ WatTime1M0=1;min
+                                 	.equ WatTime1M1=1;min
+                                 	.equ WatTime1M2=1;min
+                                 	.equ WatTime1M3=1;min
+                                 	.equ WatTime1M4=1;min
+                                 	.equ WatTime1M5=1;min
+                                 	.equ WatTime1M6=1;min
+                                 	.equ WatTime1M7=1;min
+                                 
+                                 	.equ WatTime2M0=1;min
+                                 	.equ WatTime2M1=2;min
+                                 	.equ WatTime2M2=3;min
+                                 	.equ WatTime2M3=1;min
+                                 	.equ WatTime2M4=1;min
+                                 	.equ WatTime2M5=1;min
+                                 	.equ WatTime2M6=1;min
+                                 	.equ WatTime2M7=1;min
+                                 
+                                 	.def WatCR=r1
+                                 
+                                 	.def dispDataReg=r19
+                                 	.def CurrentWindow=r20
+                                 	.def Status=r21	
+                                 	.def SysReg1=r22
+                                 	.def SysReg2=r23
+                                 	.def SysReg3=r24
+                                 	.def SysReg4=r25
+                                 
+                                 
+                                 
+                                 	.equ DispPort=PORTC
+                                 
+                                 
+                                 	;0-RS
+                                 	;1-EN
+                                 	;2-D4
+                                 	;3-D5
+                                 	;4-D6
+                                 	;5-D7
+                                 
+                                 	.equ WatPin=PIND
+                                 	.equ WatPort=PORTD
+                                 	;0-M0
+                                 	;1-M1
+                                 	;2-M2
+                                 	;3-M3
+                                 	;4-M4
+                                 	;5-M5
+                                 	;6-M6
+                                 	;7-M7
+                                 
+                                 	.equ EncPin=PINB
+                                 	.equ EncPort=PORTB
+                                 
+                                 	;0-Button
+                                 	;1-Enc+
+                                 	.include "Macro.inc"
+                                 
+                                 
+                                 .macro RamErase
+                                 	clr SysReg1
+                                 	clr SysReg2
+                                 	clr SysReg3
+                                 	clr SysReg4
+                                 	clr CurrentWindow
+                                 	clr Status
+                                 	clr dispDataReg
+                                 
+                                 	ldi ZL,low(SRAM_START)
+                                 	ldi ZH,high(SRAM_START)
+                                 
+                                 raminit:
+                                 	ldi SysReg1,0x00
+                                 	st Z+,SysReg1
+                                 	ldi SysReg1,low(RAMEND)
+                                 	cp ZL,SysReg1
+                                 	brne raminit
+                                 	ldi SysReg1,high(RAMEND)
+                                 	cp ZH,SysReg1
+                                 	brne raminit
+                                 .endm
+                                 
+                                 
+                                 .macro delay5
+                                 	push SysReg1
+                                 	push SysReg2
+                                 	push SysReg3
+                                 
+                                 
+                                 	ldi SysReg1,low(@0)
+                                 	ldi SysReg2,high(@0)
+                                 	ldi SysReg3,byte3(@0)
+                                 
+                                  delay5w1:
+                                 	subi SysReg1,1
+                                 	sbci SysReg2,0
+                                 	sbci SysReg3,0
+                                 	brcc delay5w1  
+                                 
+                                 	pop SysReg3
+                                 	pop SysReg2
+                                 	pop SysReg1
+                                 .endm
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 .macro initStack
+                                     ldi SysReg1,low(RAMEND)
+                                 	out SPL,SysReg1
+                                 	ldi SysReg1,high(RAMEND)
+                                 	out SPH,SysReg1
+                                 .endm
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 .macro outi 
+                                 	push SysReg1
+                                 	ldi SysReg1,@1
+                                 	out @0,SysReg1
+                                 	pop SysReg1
+                                 .endm
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 .macro mldi
+                                 	ldi SysReg1,@1
+                                 	mov @0,SysReg1
+                                 .endm
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 .macro stsi
+                                 ldi SysReg1,@1
+                                 sts @0,SysReg1
+                                 .endm
+                                 
+                                 
+                                 
+                                 .macro inc2bVar
+                                 	push SysReg1
+                                 	push SysReg2
+                                 	push SysReg3
+                                 	push SysReg4
+                                 
+                                 ;==========================================
+                                 
+                                 	clr SysReg1
+                                 	ldi SysReg2,1
+                                 
+                                 	lds SysReg3,@0
+                                 	lds SysReg4,@0+1
+                                 
+                                 	add SysReg3,SysReg2
+                                 	adc SysReg4,SysReg1
+                                 
+                                 	sts @0,SysReg3
+                                 	sts @0+1,SysReg4
+                                 
+                                 ;==========================================
+                                 	pop SysReg4
+                                 	pop SysReg3
+                                 	pop SysReg2
+                                 	pop SysReg1
+                                 .endm
+                                 
+                                 
+                                 .macro inc3bVar
+                                 	push SysReg1
+                                 	push SysReg2
+                                 	push SysReg3
+                                 	push SysReg4
+                                 	push r18
+                                 
+                                 
+                                 ;==========================================
+                                 
+                                 	clr SysReg1
+                                 	ldi SysReg2,1
+                                 
+                                 	lds SysReg3,@0
+                                 	lds SysReg4,@0+1
+                                 	lds r18,@0+2
+                                 
+                                 	add SysReg3,SysReg2
+                                 	adc SysReg4,SysReg1
+                                 	adc r18,SysReg1
+                                 
+                                 	sts @0,SysReg3
+                                 	sts @0+1,SysReg4
+                                 	sts @0+2,r18
+                                 ;==========================================
+                                 
+                                 	pop r18
+                                 	pop SysReg4
+                                 	pop SysReg3
+                                 	pop SysReg2
+                                 	pop SysReg1
+                                 .endm
+                                 
+                                 
+                                 
+                                 .macro initVar 
+                                 	ldi SysReg1,0xFF
+                                 	mov WatCR,SysReg1
+                                 	clr r0
+                                 	clr r1
+                                 	clr r2
+                                 	clr r3
+                                 	ldi r16,0
+                                 	mov r3,r16
+                                 	clr r4
+                                 	clr r5
+                                 	clr r6
+                                 	clr r7
+                                 	clr r8
+                                 	clr r9
+                                 	clr r10
+                                 	clr r11
+                                 	clr r12
+                                 	clr r13
+                                 	clr r14
+                                 	clr r15
+                                 .endm
+                                 
+                                 
+                                 .macro initPort 
+                                 	outi DDRC,$FF
+                                 	outi DispPort,$00
+                                 	outi DDRB,$00
+                                 	outi PORTB,$FF
+                                 	outi DDRD,$FF
+                                 	outi WatPort,$00
+                                 .endm
+                                 
+                                 .macro initEEPROM
+                                 
+                                 .endm
+                                 
+                                 
+                                 .macro clr2bVar
+                                 	push SysReg1
+                                 
+                                 
+                                 ;==========================================
+                                 
+                                 	clr SysReg1
+                                 	sts @0,SysReg1
+                                 	sts @0+1,SysReg1
+                                 
+                                 ;==========================================
+                                 
+                                 	pop SysReg1
+                                 .endm
+                                 
+                                 
+                                 .macro getAddr
+                                 
+                                 	ldi r16,0
+                                 	mov r17,@1
+                                 	lsl r17
+                                 	ldi ZL,low(@0)
+                                 	ldi ZH,high(@0)
+                                 	lsl ZL
+                                 	ROL ZH
+                                 	add ZL,r17
+                                 	adc ZH,r16
+                                 	lpm XL,Z+
+                                 	lpm XH,Z
+                                 	mov ZL,XL
+                                 	mov ZH,XH
+                                 
+                                 
+                                 .endm
+                                 
+                                 
+                                 .macro hexToAscii 
+                                 ;********************ДОПИСАТЬ
+                                 subi @0,-48
+                                 ldi ZL,6
+                                 ldi ZH,9
+                                 .endm
+                                 
+                                 .macro cpmemi ;Var,value
+                                 ;********************ДОПИСАТЬ
+                                 lds SysReg1,@0
+                                 cpi SysReg1,@1
+                                 .endm
+                                 
+                                 .macro cpmemwi ;Var,value
+                                 
+                                 ;********************ДОПИСАТЬ
+                                 lds SysReg1,@0
+                                 cpi SysReg1,@1
+                                 .endm
+                                 
+                                 .macro cpmem ;Var,value
+                                 ;********************ДОПИСАТЬ
+                                 lds SysReg1,@0
+                                 lds SysReg3,@0+1
+                                 lds SysReg4,@1
+                                 lds SysReg5,@1+1
+                                 
+                                 
+                                 .endm
+                                 
+                                 .macro wordToTime
+                                 ;********************ДОПИСАТЬ
+                                 ldi XL,2
+                                 ldi XH,3
+                                 .endm
+                                 
+                                 .macro getBit
+                                 ;********************ДОПИСАТЬ
+                                 ldi SysReg1,69
+                                 .endm
+                                 
+                                 
+                                 .macro getBitmem
+                                 ;********************ДОПИСАТЬ
+                                 ldi SysReg1,69
+                                 	.include "Display.inc"
+                                 
+                                 	;0b-DispRefresh
+                                 	;1b-TurnLeft
+                                 	;2b-TurnRighr
+                                 	;3b-ButtonClick
+                                 	;4b-d1First
+                                 	;5b-d2First
+                                 	;6b-ButtonWasOn
+                                 ;========================================================================================================================================================================
+                                 
+                                 .macro DispSendDataI
+                                 	push dispDataReg
+                                 
+                                 	ldi dispDataReg,@0
+                                 	rcall DispSendData
+                                 
+                                 	pop dispDataReg
+                                 .endm
+                                 
+                                 ;========================================================================================================================================================================
+                                 
+                                 .macro DispSendComndi
+                                 	push dispDataReg
+                                 
+                                 	ldi dispDataReg,@0
+                                 	rcall DispSendComnd
+                                 
+                                 	pop dispDataReg
+                                 .endm
+                                 
+                                 ;========================================================================================================================================================================
+                                 
+                                 .macro initDisp
+                                 	ldi CurrentWindow,0
+                                 
+                                 	DispSendComndi 0x02
+                                 	DispSendComndi 0x08
+                                 	DispSendComndi 0x0C
+                                 	DispSendComndi 0x06
+                                 	DispSendComndi 0x01
+                                 	delay5 600
+                                 .endm
+                                 ;========================================================================================================================================================================
+                                 
+                                 .macro clrDisp
+                                 	DispSendComndi 0x01
+                                 	delay5 600
+                                 .endm
+                                 
+                                 ;========================================================================================================================================================================
+                                 
+                                 .macro getWindowAddr 
+                                 	lsl @0
+                                 	clr SysReg1
+                                 	ldi ZL,low(MenuList)
+                                 	ldi ZH,high(MenuList)
+                                 	lsl ZL
+                                 	rol ZH
+                                 	add ZL,@0
+                                 	adc ZH,r17
+                                 	lpm XL,Z+
+                                 	nop
+                                 	lpm XH,Z
+                                 	nop
+                                 
+                                 
+                                 	mov ZL,XL
+                                 	mov ZH,XH
+                                 .endm
+                                 
+                                 ;========================================================================================================================================================================
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 .macro displayCheck
+                                 	push XL
+                                 	push XH
+                                 ;==========================================
+                                 
+                                 	lds XL,DWT
+                                 	lds XH,DWT+1
+                                 
+                                 	cpi XL,low(DispRefreshTime*10/2)
+                                 	brcs displayCheckEnd
+                                 	cpi XH,high(DispRefreshTime*10/2)
+                                 	brcs displayCheckEnd
+                                 	
+                                 	clr XL
+                                 	sts DWT,XL
+                                 	sts DWT+1,XL
+                                 	ori Status,1
+                                 	
+                                 ;==========================================
+                                 displayCheckEnd:
+                                 	pop XH
+                                 	pop XL
+                                 
+                                 .endm
+                                 
+                                 
+                                 .macro InitSetWindowSet
+                                 	stsi curPos,0
+                                 	stsi scrPos,0
+                                 	stsi curMax,8
+                                 .endm
+                                 
+                                 .macro InitMXWindowSet
+                                 	stsi curPos,0
+                                 	stsi scrPos,0
+                                 	stsi curMax,3
+                                 .endm
+                                 
+                                 .macro InitWWindowSet
+                                 	stsi curPos,0
+                                 	stsi scrPos,0
+                                 	stsi curMax,1
+                                 .endm
+                                 
+                                 
+                                 .macro DispSendDataR
+                                 mov @0,DispDataReg
+                                 rcall DispSendData
+                                 .endm
+                                 
+                                 .macro DispSendTime
+                                 hexToAscii XL ;
+                                 DispSendDataR ZL
+                                 DispSendDataR ZH
+                                 DispSendDataI 'h'
+                                 hexToAscii XH 
+                                 DispSendDataR ZL
+                                 DispSendDataR ZH
+                                 DispSendDataI 'm'
+                                 
+                                 	.include "Encoder.inc"
+                                 
+                                 	outi TCCR0,1
+                                 	outi SFIOR,1
+                                 	outi TIMSK,1	
+                                 	SEI
+                                 .endm
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 ;=============================================================================================================================================================================================================
+                                 
+                                 
+                                 .macro EncoderCheck
+                                 
+                                 rjmp checkZero
+                                 
+                                 
+                                 
+                                 						checkZero:
+                                 						sbrc Status,7
+                                 						brne waitZero
+                                 
+                                 
+                                 						sbrc Status,4
+                                 						rjmp d1wasFirst
+                                 						sbrc Status,5
+                                 						rjmp d2wasFirst
+                                 						rjmp idle
+                                 
+                                 											d1wasFirst:
+                                 											in SysReg1,EncPin
+                                 											andi SysReg1,0b00000110
+                                 											cpi SysReg1,0b00000100
+                                 											brne end
+                                 											ori Status,0b10000000
+                                 											rjmp end
+                                 
+                                 
+                                 
+                                 											d2wasFirst:
+                                 											in SysReg1,EncPin
+                                 											andi SysReg1,0b00000110
+                                 											cpi SysReg1,0b00000010
+                                 											brne end
+                                 											ori Status,0b10000000
+                                 											rjmp end
+                                 
+                                 
+                                 											idle:
+                                 											in SysReg1,EncPin
+                                 											andi SysReg1,0b00000110
+                                 											cpi SysReg1,0b00000010	
+                                 											breq setd1First
+                                 											cpi SysReg1,0b00000100	
+                                 											breq setd2First
+                                 											rjmp end
+                                 											setd1First:
+                                 											ori Status,0b00010000
+                                 											rjmp end
+                                 											setd2First:
+                                 											ori Status,0b00100000
+                                 											rjmp end
+                                 
+                                 					waitZero:
+                                 					sbis EncPin,1
+                                 					rjmp end
+                                 					sbis EncPin,2
+                                 					rjmp end
+                                 
+                                 					left:
+                                 					sbrs Status,4
+                                 					rjmp right
+                                 					andi Status,0b01101111
+                                 					ori Status,0b00000010
+                                 					right:
+                                 					sbrs Status,5
+                                 					rjmp end
+                                 					andi Status,0b01011111
+                                 					ori Status,0b00000100
+                                 					rjmp end
+                                 
+                                 					end:
+                                 .endm
+                                 
+                                 
+                                 
+                                 ;=============================================================================================================================================================================================================
+                                 
+                                 .macro ButtonCheck
+                                 
+                                 sbrs Status,6
+                                 rjmp wasOff
+                                 rjmp wasOn
+                                 			wasOn:
+                                 			sbis EncPin,0
+                                 			rjmp end
+                                 			lds XL,BWT
+                                 			lds XH,BWT+1
+                                 			cpi XL,0x4F
+                                 			brcs end
+                                 			cpi XH,0x01
+                                 			breq check
+                                 			brcs end
+                                 							check:
+                                 							andi Status,0b10111111
+                                 							ori Status,0b00001000
+                                 							rjmp end
+                                 
+                                 
+                                 
+                                 
+                                 			rjmp end
+                                 
+                                 
+                                 			wasOff:
+                                 			sbic EncPin,0
+                                 			rjmp end
+                                 			clr2bVar BWT
+                                 			ori Status,0b01000000
+                                 			rjmp end
+                                 
+                                 
+                                 end:
+                                 .endm
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 ;=============================================================================================================================================================================================================
+                                 
+                                 .macro OneMinCheck
+                                 
+                                 	lds SysReg1,OneMinTime
+                                 	lds SysReg2,OneMinTime+1
+                                 	lds SysReg3,OneMinTime+2
+                                 
+                                 	cpi SysReg1,0x00
+                                 	brcs gotoend
+                                 
+                                 	cpi SysReg2,0x60
+                                 	brcs gotoend
+                                 
+                                 	cpi SysReg3,0x00
+                                 	brne gotoend
+                                 	rjmp start
+                                 gotoend:
+                                 	rjmp endOneMinCheck
+                                 
+                                 start:
+                                 	clr SysReg1
+                                 	sts OneMinTime+0,SysReg1
+                                 	sts OneMinTime+1,SysReg1
+                                 	sts OneMinTime+2,SysReg1
+                                 
+                                 
+                                 M0:
+                                 		
+                                 	inc2bVar TimerM0	
+                                 	lds XL,TimerM0
+                                 	lds XH,TimerM0+1
+                                 
+                                 	sbis WatPort,0
+                                 	rjmp elseM0
+                                 ;=========
+                                 	cpi XL,low(WatTime1M0)
+                                 	brne M1
+                                 	cpi XH,high(WatTime1M0)
+                                 	brne M1
+                                 	cbi WatPort,0
+                                 	clr2bVar TimerM0
+                                 	rjmp M1
+                                 ;=========
+                                 elseM0:
+                                 	cpi XL,low(WatTime2M0)
+                                 	brne M1
+                                 	cpi XH,high(WatTime2M0)
+                                 	brne M1
+                                 	sbi WatPort,0
+                                 	clr2bVar TimerM0
+                                 
+                                 M1:
+                                 		
+                                 	inc2bVar TimerM1	
+                                 	lds XL,TimerM1
+                                 	lds XH,TimerM1+1
+                                 
+                                 	sbis WatPort,1
+                                 	rjmp elseM1
+                                 ;=========
+                                 	cpi XL,low(WatTime1M1)
+                                 	brne M2
+                                 	cpi XH,high(WatTime1M1)
+                                 	brne M2
+                                 	cbi WatPort,1
+                                 	clr2bVar TimerM1
+                                 	rjmp M2
+                                 ;=========
+                                 elseM1:
+                                 	cpi XL,low(WatTime2M1)
+                                 	brne M2
+                                 	cpi XH,high(WatTime2M1)
+                                 	brne M2
+                                 	sbi WatPort,1
+                                 	clr2bVar TimerM1
+                                 M2:
+                                 		
+                                 	inc2bVar TimerM2	
+                                 	lds XL,TimerM2
+                                 	lds XH,TimerM2+1
+                                 
+                                 	sbis WatPort,2
+                                 	rjmp elseM2
+                                 ;=========
+                                 	cpi XL,low(WatTime1M2)
+                                 	brne M3
+                                 	cpi XH,high(WatTime1M2)
+                                 	brne M3
+                                 	cbi WatPort,2
+                                 	clr2bVar TimerM2
+                                 	rjmp M3
+                                 ;=========
+                                 elseM2:
+                                 	cpi XL,low(WatTime2M2)
+                                 	brne M3
+                                 	cpi XH,high(WatTime2M2)
+                                 	brne M3
+                                 	sbi WatPort,2
+                                 	clr2bVar TimerM2
+                                 M3:
+                                 	inc2bVar TimerM3	
+                                 	lds XL,TimerM3
+                                 	lds XH,TimerM3+1
+                                 
+                                 	sbis WatPort,3
+                                 	rjmp elseM3
+                                 ;=========
+                                 	cpi XL,low(WatTime1M3)
+                                 	brne M4
+                                 	cpi XH,high(WatTime1M3)
+                                 	brne M4
+                                 	cbi WatPort,3
+                                 	clr2bVar TimerM3
+                                 	rjmp M4
+                                 ;=========
+                                 elseM3:
+                                 	cpi XL,low(WatTime2M3)
+                                 	brne M4
+                                 	cpi XH,high(WatTime2M3)
+                                 	brne M4
+                                 	sbi WatPort,3
+                                 	clr2bVar TimerM3
+                                 M4:
+                                 	
+                                 M5:
+                                 M6:
+                                 M7:
+                                 
+                                 	endOneMinCheck:
+                                 
+                                 	.list
+                                 ;DATA SEG;;;;;;;;;;;;;;;;;;;;;;;
+                                 
+                                 	.dseg
+                                 	.org SRAM_START
+000060                           temp:				.byte 2
+000062                           tempAddr:			.byte 2
+000064                           selected:			.byte 1
+000065                           WisOn:				.byte 1
+000066                           curPos:				.byte 1
+000067                           scrPos:				.byte 1
+000068                           curMax:				.byte 1
+000069                           BWT:				.byte 2
+00006b                           EWT:				.byte 2
+00006d                           DWT:				.byte 2
+00006f                           WCR:				.byte 1
+000070                           OneMinTime:			.byte 3
+000073                           TimerM0:			.byte 2
+000075                           TimerM1:			.byte 2
+000077                           TimerM2:			.byte 2
+000079                           TimerM3:			.byte 2
+00007b                           TimerM4:			.byte 2
+00007d                           TimerM5:			.byte 2
+00007f                           TimerM6:			.byte 2
+000081                           T1:					.byte 7*2
+00008f                           T2:					.byte 7*2
+                                 
+                                 ;CODE SEG;;;;;;;;;;;;;;;;;;;;;;;
+                                 
+                                 ;Interupt====================================================================================================================================================================================
+                                 	.cseg
+                                 	.org 0x00
+000000 c07f                      	rjmp init
+000001 9518                      	reti
+000002 9518                      	reti
+000003 9518                      	reti
+000004 9518                      	reti
+000005 9518                      	reti
+000006 9518                      	reti
+000007 9518                      	reti
+000008 9518                      	reti
+000009 c026                      	rjmp timer
+00000a 9518                      	reti
+00000b 9518                      	reti
+00000c 9518                      	reti
+00000d 9518                      	reti
+00000e 9518                      	reti
+00000f 9518                      	reti
+000010 9518                      	reti
+000011 9518                      	reti
+000012 9518                      	reti
+                                 
+                                 ;Таблицы переходов
+                                 
+000013 0325
+000014 03a5
+000015 044a
+000016 04fd
+000017 050e
+000018 051f
+000019 0530
+00001a 0541
+00001b 0552
+00001c 0563                      MenuList:		.dw ShowMainMenu,ShowSetMenu,ShowM0,ShowM1,ShowM2,ShowM3,ShowM4,ShowM5,ShowM6,ShowW
+00001d 0570
+00001e 057b
+00001f 058c
+000020 05cd
+000021 05cf
+000022 05d1
+000023 05d3
+000024 05d5
+000025 05d7
+000026 05d9                      BInMenuList:	.dw BInMainMenu,BInSetMenu,BInM0,BInM1,BInM2,BInM3,BInM4,BInM5,BInM6,BInW
+000027 05db
+000028 05e6
+000029 05f1
+00002a 05fc
+00002b 0607
+00002c 0612
+00002d 061d
+00002e 0628
+00002f 0633                      BSetMenuList:	.dw SetCurWindowM0,SetCurWindowM1,SetCurWindowM2,SetCurWindowM3,SetCurWindowM4,SetCurWindowM5,SetCurWindowM6,SetCurWindowW,SetCurWindowMain
+                                 
+                                 ;InteruptHandler===============================================================================================================================================================================
+                                 timer:
+000030 931f                      	push r17
+000031 936f                      	push SysReg1
+                                 
+000032 e415                      	ldi r17,0x45
+000033 bf12                      	out TCNT0,r17
+                                 	
+000034 b71f                      	in r17,sreg
+                                 	;======================	
+000035 936f
+000036 937f
+000037 938f
+000038 939f
+000039 932f
+00003a 2766
+00003b e071
+00003c 9180 0070
+00003e 9190 0071
+000040 9120 0072
+000042 0f87
+000043 1f96
+000044 1f26
+000045 9380 0070
+000047 9390 0071
+000049 9320 0072
+00004b 912f
+00004c 919f
+00004d 918f
+00004e 917f
+00004f 916f                      	inc3bVar OneMinTime
+000050 936f
+000051 937f
+000052 938f
+000053 939f
+000054 2766
+000055 e071
+000056 9180 006d
+000058 9190 006e
+00005a 0f87
+00005b 1f96
+00005c 9380 006d
+00005e 9390 006e
+000060 919f
+000061 918f
+000062 917f
+000063 916f                      	inc2bVar DWT
+                                 TNext1:
+000064 2f65                      	mov SysReg1,Status
+000065 7460                      	andi SysReg1,0b01000000
+000066 f0a9                      	breq TNext2
+000067 99c0                      	sbic EncPort,0
+000068 936f
+000069 937f
+00006a 938f
+00006b 939f
+00006c 2766
+00006d e071
+00006e 9180 0069
+000070 9190 006a
+000072 0f87
+000073 1f96
+000074 9380 0069
+000076 9390 006a
+000078 919f
+000079 918f
+00007a 917f
+00007b 916f                      	inc2bVar BWT
+                                 TNext2:
+                                 	;======================
+00007c bf1f                      	out sreg,r17
+00007d 916f                      	pop SysReg1
+00007e 911f                      	pop r17
+00007f 9518                      	reti
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 ;Init Program========================================================================================================================================================================
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 init:
+000080 2766
+000081 2777
+000082 2788
+000083 2799
+000084 2744
+000085 2755
+000086 2733
+000087 e6e0
+000088 e0f0
+000089 e060
+00008a 9361
+00008b e56f
+00008c 17e6
+00008d f7d9
+00008e e064
+00008f 17f6
+000090 f7c1                      	RamErase
+000091 e56f
+000092 bf6d
+000093 e064
+000094 bf6e                      	initStack
+000095 ef6f
+000096 2e16
+000097 2400
+000098 2411
+000099 2422
+00009a 2433
+00009b e000
+00009c 2e30
+00009d 2444
+00009e 2455
+00009f 2466
+0000a0 2477
+0000a1 2488
+0000a2 2499
+0000a3 24aa
+0000a4 24bb
+0000a5 24cc
+0000a6 24dd
+0000a7 24ee
+0000a8 24ff                      	initVar
+0000a9 936f
+0000aa ef6f
+0000ab bb64
+0000ac 916f
+0000ad 936f
+0000ae e060
+0000af bb65
+0000b0 916f
+0000b1 936f
+0000b2 e060
+0000b3 bb67
+0000b4 916f
+0000b5 936f
+0000b6 ef6f
+0000b7 bb68
+0000b8 916f
+0000b9 936f
+0000ba ef6f
+0000bb bb61
+0000bc 916f
+0000bd 936f
+0000be e060
+0000bf bb62
+0000c0 916f                      	initPort
+0000c1 e040
+0000c2 933f
+0000c3 e032
+0000c4 d230
+0000c5 913f
+0000c6 933f
+0000c7 e038
+0000c8 d22c
+0000c9 913f
+0000ca 933f
+0000cb e03c
+0000cc d228
+0000cd 913f
+0000ce 933f
+0000cf e036
+0000d0 d224
+0000d1 913f
+0000d2 933f
+0000d3 e031
+0000d4 d220
+0000d5 913f
+0000d6 936f
+0000d7 937f
+0000d8 938f
+0000d9 e568
+0000da e072
+0000db e080
+0000dc 5061
+0000dd 4070
+0000de 4080
+0000df f7e0
+0000e0 918f
+0000e1 917f
+0000e2 916f                      	initDisp
+                                 	initEEPROM
+0000e3 936f
+0000e4 e061
+0000e5 bf63
+0000e6 916f
+0000e7 936f
+0000e8 e061
+0000e9 bf60
+0000ea 916f
+0000eb 936f
+0000ec e061
+0000ed bf69
+0000ee 916f
+0000ef 9478                      	timer0On
+                                 
+0000f0 c000                      	rjmp main
+                                 
+                                 ;MainCycle============================================
+                                 main:
+0000f1 9160 0070
+0000f3 9170 0071
+0000f5 9180 0072
+0000f7 3060
+0000f8 f028
+0000f9 3670
+0000fa f018
+0000fb 3080
+0000fc f409
+0000fd c001
+0000fe c0d3
+0000ff 2766
+000100 9360 0070
+000102 9360 0071
+000104 9360 0072
+000106 936f
+000107 937f
+000108 938f
+000109 939f
+00010a 2766
+00010b e071
+00010c 9180 0073
+00010e 9190 0074
+000110 0f87
+000111 1f96
+000112 9380 0073
+000114 9390 0074
+000116 919f
+000117 918f
+000118 917f
+000119 916f
+00011a 91a0 0073
+00011c 91b0 0074
+00011e 9b90
+00011f c00d
+000120 30a1
+000121 f4b9
+000122 30b0
+000123 f4a9
+000124 9890
+000125 936f
+000126 2766
+000127 9360 0073
+000129 9360 0074
+00012b 916f
+00012c c00c
+00012d 30a1
+00012e f451
+00012f 30b0
+000130 f441
+000131 9a90
+000132 936f
+000133 2766
+000134 9360 0073
+000136 9360 0074
+000138 916f
+000139 936f
+00013a 937f
+00013b 938f
+00013c 939f
+00013d 2766
+00013e e071
+00013f 9180 0075
+000141 9190 0076
+000143 0f87
+000144 1f96
+000145 9380 0075
+000147 9390 0076
+000149 919f
+00014a 918f
+00014b 917f
+00014c 916f
+00014d 91a0 0075
+00014f 91b0 0076
+000151 9b91
+000152 c00d
+000153 30a1
+000154 f4b9
+000155 30b0
+000156 f4a9
+000157 9891
+000158 936f
+000159 2766
+00015a 9360 0075
+00015c 9360 0076
+00015e 916f
+00015f c00c
+000160 30a2
+000161 f451
+000162 30b0
+000163 f441
+000164 9a91
+000165 936f
+000166 2766
+000167 9360 0075
+000169 9360 0076
+00016b 916f
+00016c 936f
+00016d 937f
+00016e 938f
+00016f 939f
+000170 2766
+000171 e071
+000172 9180 0077
+000174 9190 0078
+000176 0f87
+000177 1f96
+000178 9380 0077
+00017a 9390 0078
+00017c 919f
+00017d 918f
+00017e 917f
+00017f 916f
+000180 91a0 0077
+000182 91b0 0078
+000184 9b92
+000185 c00d
+000186 30a1
+000187 f4b9
+000188 30b0
+000189 f4a9
+00018a 9892
+00018b 936f
+00018c 2766
+00018d 9360 0077
+00018f 9360 0078
+000191 916f
+000192 c00c
+000193 30a3
+000194 f451
+000195 30b0
+000196 f441
+000197 9a92
+000198 936f
+000199 2766
+00019a 9360 0077
+00019c 9360 0078
+00019e 916f
+00019f 936f
+0001a0 937f
+0001a1 938f
+0001a2 939f
+0001a3 2766
+0001a4 e071
+0001a5 9180 0079
+0001a7 9190 007a
+0001a9 0f87
+0001aa 1f96
+0001ab 9380 0079
+0001ad 9390 007a
+0001af 919f
+0001b0 918f
+0001b1 917f
+0001b2 916f
+0001b3 91a0 0079
+0001b5 91b0 007a
+0001b7 9b93
+0001b8 c00d
+0001b9 30a1
+0001ba f4b9
+0001bb 30b0
+0001bc f4a9
+0001bd 9893
+0001be 936f
+0001bf 2766
+0001c0 9360 0079
+0001c2 9360 007a
+0001c4 916f
+0001c5 c00c
+0001c6 30a1
+0001c7 f451
+0001c8 30b0
+0001c9 f441
+0001ca 9a93
+0001cb 936f
+0001cc 2766
+0001cd 9360 0079
+0001cf 9360 007a
+0001d1 916f                      	OneMinCheck
+0001d2 93af
+0001d3 93bf
+0001d4 91a0 006d
+0001d6 91b0 006e
+0001d8 3fa4
+0001d9 f040
+0001da 30b1
+0001db f030
+0001dc 27aa
+0001dd 93a0 006d
+0001df 93a0 006e
+0001e1 6051
+0001e2 91bf
+0001e3 91af                      	displayCheck
+0001e4 c000
+0001e5 fd57
+0001e6 f4e1
+0001e7 fd54
+0001e8 c003
+0001e9 fd55
+0001ea c007
+0001eb c00c
+0001ec b366
+0001ed 7066
+0001ee 3064
+0001ef f501
+0001f0 6850
+0001f1 c01e
+0001f2 b366
+0001f3 7066
+0001f4 3062
+0001f5 f4d1
+0001f6 6850
+0001f7 c018
+0001f8 b366
+0001f9 7066
+0001fa 3062
+0001fb f019
+0001fc 3064
+0001fd f019
+0001fe c011
+0001ff 6150
+000200 c00f
+000201 6250
+000202 c00d
+000203 9bb1
+000204 c00b
+000205 9bb2
+000206 c009
+000207 ff54
+000208 c002
+000209 765f
+00020a 6052
+00020b ff55
+00020c c003
+00020d 755f
+00020e 6054
+00020f c000                      	EncoderCheck	
+000210 ff56
+000211 c010
+000212 c000
+000213 9bb0
+000214 c018
+000215 91a0 0069
+000217 91b0 006a
+000219 34af
+00021a f090
+00021b 30b1
+00021c f009
+00021d f078
+00021e 7b5f
+00021f 6058
+000220 c00c
+000221 c00b
+000222 99b0
+000223 c009
+000224 936f
+000225 2766
+000226 9360 0069
+000228 9360 006a
+00022a 916f
+00022b 6450
+00022c c000                      	ButtonCheck
+                                 
+                                 
+                                 
+                                 
+00022d fd50                      	sbrc Status,0
+00022e d004                      	rcall DispRefresh	
+00022f fd53                      	sbrc Status,3
+000230 d084                      	rcall ButtonClick
+000231 d022                      	rcall EncHandler
+000232 cebe                          rjmp main
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 ;Other=======================================================================================================================================================================
+                                 
+                                 DispRefresh:
+000233 7f5e                      	andi Status,0b11111110
+000234 933f
+000235 e031
+000236 d0be
+000237 913f
+000238 936f
+000239 937f
+00023a 938f
+00023b e568
+00023c e072
+00023d e080
+00023e 5061
+00023f 4070
+000240 4080
+000241 f7e0
+000242 918f
+000243 917f
+000244 916f                      	clrDisp
+000245 e000
+000246 2f14
+000247 0f11
+000248 e1e3
+000249 e0f0
+00024a 0fee
+00024b 1fff
+00024c 0fe1
+00024d 1ff0
+00024e 91a5
+00024f 91b4
+000250 2fea
+000251 2ffb                      	getAddr MenuList,CurrentWindow	
+000252 9509                      	icall
+000253 9508                      	ret
+                                 
+                                 
+                                 ;========================================================================================================================================================================
+                                 
+                                 
+                                 EncHandler:
+                                 ;Проверка на нулевое окно
+000254 3040                      	cpi CurrentWindow,0
+000255 f009                      	breq EncHandlerJumpToEnd
+000256 c001                      	rjmp EncHandlerStatus
+                                 	EncHandlerJumpToEnd:
+000257 c05c                      	rjmp EncHandlerEnd
+                                 
+                                 ;ПРоверка статуса	
+                                 EncHandlerStatus:						
+000258 fd51                      	sbrc Status,1
+000259 c003                      	rjmp EncHandlerLeft
+00025a fd52                      	sbrc Status,2
+00025b c004                      	rjmp EncHandlerRight
+00025c c057                      	rjmp EncHandlerEnd
+                                 
+                                 EncHandlerLeft:
+00025d 7f5d                      	andi Status,0b11111101
+00025e e091                      	ldi SysReg4,1
+00025f c003                      	rjmp EncHandlerSelect
+                                 EncHandlerRight:
+000260 7f5b                      	andi Status,0b11111011
+000261 ef9f                      	ldi SysReg4,-1
+000262 c000                      	rjmp EncHandlerSelect
+                                 							
+                                 EncHandlerSelect:
+000263 9160 0064                 	lds SysReg1,Selected
+000265 fd60                      	sbrc SysReg1,0
+000266 f169                      	breq EncHandlerIsSelected
+                                 
+                                 								EncHandlernotSelected:
+000267 9160 0066                 									lds SysReg1,curPos
+000269 9170 0067                 									lds SysReg2,scrPos
+00026b 9180 0068                 									lds SysReg3,curMax
+00026d 9583                      									inc SysReg3
+00026e 1b69                      									sub SysReg1,SysReg4	
+00026f 9360 0066                 									sts curPos,SysReg1				
+                                 								curOwf:
+000271 1768                      									cp SysReg1,SysReg3
+000272 f059                      									breq curOwfUp
+000273 3f6f                      									cpi SysReg1,-1
+000274 f009                      									breq curOwfdown
+000275 c00f                      									rjmp scrOwf
+                                 														curOwfdown:
+000276 9160 0068                 														lds SysReg1,curMax
+000278 9360 0066                 														sts curPos,SysReg1
+00027a 956a                      														dec SysReg1
+00027b 9360 0067                 														sts scrPos,SysReg1
+00027d c007                      														rjmp scrOwf
+                                 														curOwfUp:
+00027e e060
+00027f 9360 0066                 														stsi curPos,0
+000281 e060
+000282 9360 0067                 														stsi scrPos,0 
+000284 c000                      														rjmp scrOwf
+                                 
+                                 
+                                 
+                                 								scrOwf:
+000285 1b67                      									sub SysReg1,SysReg2
+000286 3f6f                      									cpi SysReg1,-1
+000287 f019                      									breq scrOwfDown
+000288 3062                      									cpi SysReg1,2
+000289 f029                      									breq scrOwfUp
+00028a c029                      									rjmp EncHandlerEnd
+                                 														scrOwfDown:
+00028b 957a                      														dec SysReg2
+00028c 9370 0067                 														sts scrPos,SysReg2
+00028e c025                      														rjmp EncHandlerEnd
+                                 														scrOwfUp:
+00028f 9573                      														inc SysReg2
+000290 9370 0067                 														sts scrPos,SysReg2
+000292 c021                      														rjmp EncHandlerEnd
+                                 
+                                 
+000293 c020                      								rjmp EncHandlerEnd
+                                 
+                                 
+                                 
+                                 								EncHandlerIsSelected:
+000294 9160 0060                 									lds SysReg1,temp
+000296 9170 0061                 									lds SysReg2,temp+1
+                                 									
+000298 3091                      									cpi SysReg4,1
+000299 f009                      									breq EncHandlerIsSelectedSub
+00029a c00e                      									rjmp EncHandlerIsSelectedAdd
+                                 
+                                 					
+                                 															EncHandlerIsSelectedSub:
+                                 																
+                                 															EncHandlerIsSelectedSubCheckb0:							
+00029b 3060                      																cpi SysReg1,0
+00029c f009                      																breq EncHandlerIsSelectedSubCheckb1
+00029d c003                      																rjmp EncHandlerIsSelectedSubing
+                                 															EncHandlerIsSelectedSubCheckb1:
+00029e 3070                      																cpi SysReg2,0
+00029f f0a1                      																breq EncHandlerEnd
+0002a0 c000                      																rjmp EncHandlerIsSelectedSubing
+                                 															EncHandlerIsSelectedSubing:
+0002a1 e080                      																ldi SysReg3,0
+0002a2 5061                      																subi SysReg1,1
+0002a3 0b68                      																sbc SysReg1,SysReg3
+0002a4 9360 0060                 																sts temp,SysReg1
+0002a6 9370 0061                 																sts temp+1,SysReg2
+0002a8 c00b                      																rjmp EncHandlerEnd
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 															EncHandlerIsSelectedAdd:
+0002a9 e081                      																ldi SysReg3,1
+0002aa 0f68                      																add SysReg1,SysReg3
+0002ab e080                      																ldi SysReg3,0
+0002ac 1f68                      																adc SysReg1,SysReg3
+0002ad 9360 0060                 																sts temp,SysReg1
+0002af 9370 0061                 																sts temp+1,SysReg2
+0002b1 c002                      																rjmp EncHandlerEnd
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+0002b2 c001                      								rjmp EncHandlerEnd
+                                 							
+                                 
+0002b3 c000                      			rjmp EncHandlerEnd
+                                 
+                                 
+                                 EncHandlerinMainMenu:
+                                 EncHandlerEnd:
+0002b4 9508                      	ret
+                                 
+                                 
+                                 ;========================================================================================================================================================================
+                                 ;========================================================================================================================================================================
+                                 ButtonClick:	
+0002b5 7f57                      	andi Status,0b11110111
+0002b6 e000
+0002b7 2f14
+0002b8 0f11
+0002b9 e1ed
+0002ba e0f0
+0002bb 0fee
+0002bc 1fff
+0002bd 0fe1
+0002be 1ff0
+0002bf 91a5
+0002c0 91b4
+0002c1 2fea
+0002c2 2ffb                      	getAddr BInMenuList,CurrentWindow
+0002c3 9509                      	icall
+                                 	ButtonClickend:
+0002c4 9508                      	ret
+                                 ;========================================================================================================================================================================
+                                 
+                                 DispSendData:
+0002c5 936f                      	push SysReg1
+0002c6 2f63                      	mov SysReg1,dispDataReg
+0002c7 9562                      	swap SysReg1
+0002c8 706f                      	andi SysReg1,$0F
+0002c9 0f66                      	lsl SysReg1
+0002ca 0f66                      	lsl SysReg1
+0002cb 6063                      	ori SysReg1,3
+0002cc bb65                      	out DispPort,SysReg1
+0002cd 0000                      	nop
+0002ce 7f6c                      	andi SysReg1,0b11111100
+0002cf bb65                      	out DispPort,SysReg1
+                                 
+0002d0 936f
+0002d1 937f
+0002d2 938f
+0002d3 e268
+0002d4 e070
+0002d5 e080
+0002d6 5061
+0002d7 4070
+0002d8 4080
+0002d9 f7e0
+0002da 918f
+0002db 917f
+0002dc 916f                      	delay5 40
+                                 
+                                 
+0002dd 2f63                      	mov SysReg1,dispDataReg
+0002de 706f                      	andi SysReg1,$0F
+0002df 0f66                      	lsl SysReg1
+0002e0 0f66                      	lsl SysReg1
+0002e1 6063                      	ori SysReg1,3
+0002e2 bb65                      	out DispPort,SysReg1
+0002e3 0000                      	nop
+0002e4 7f6c                      	andi SysReg1,0b11111100
+0002e5 bb65                      	out DispPort,SysReg1
+                                 
+0002e6 936f
+0002e7 937f
+0002e8 938f
+0002e9 e268
+0002ea e070
+0002eb e080
+0002ec 5061
+0002ed 4070
+0002ee 4080
+0002ef f7e0
+0002f0 918f
+0002f1 917f
+0002f2 916f                      	delay5 40
+                                 
+0002f3 916f                      	pop SysReg1
+0002f4 9508                      ret
+                                 ;========================================================================================================================================================================
+                                 
+                                 DispSendComnd:
+0002f5 936f                      	push SysReg1
+0002f6 2f63                      	mov SysReg1,dispDataReg
+0002f7 9562                      	swap SysReg1
+0002f8 706f                      	andi SysReg1,$0F
+0002f9 0f66                      	lsl SysReg1
+0002fa 0f66                      	lsl SysReg1
+0002fb 6062                      	ori SysReg1,2
+0002fc bb65                      	out DispPort,SysReg1
+0002fd 0000                      	nop
+0002fe 7f6d                      	andi SysReg1,0b11111101
+0002ff bb65                      	out DispPort,SysReg1
+                                 
+000300 936f
+000301 937f
+000302 938f
+000303 e268
+000304 e070
+000305 e080
+000306 5061
+000307 4070
+000308 4080
+000309 f7e0
+00030a 918f
+00030b 917f
+00030c 916f                      	delay5 40
+                                 
+                                 
+00030d 2f63                      	mov SysReg1,dispDataReg
+00030e 706f                      	andi SysReg1,$0F
+00030f 0f66                      	lsl SysReg1
+000310 0f66                      	lsl SysReg1
+000311 6062                      	ori SysReg1,2
+000312 bb65                      	out DispPort,SysReg1
+000313 0000                      	nop
+000314 7f6d                      	andi SysReg1,0b11111101
+000315 bb65                      	out DispPort,SysReg1
+                                 
+000316 936f
+000317 937f
+000318 938f
+000319 e268
+00031a e070
+00031b e080
+00031c 5061
+00031d 4070
+00031e 4080
+00031f f7e0
+000320 918f
+000321 917f
+000322 916f                      	delay5 40
+                                 
+000323 916f                      	pop SysReg1
+000324 9508                      ret
+                                 ;========================================================================================================================================================================
+                                 ;========================================================================================================================================================================
+                                 ;========================================================================================================================================================================
+                                 ;Обработка отображения разных окон
+                                 ShowMainMenu:
+000325 933f
+000326 e43d
+000327 df9d
+000328 913f                      	DispSendDataI 'M'
+000329 933f
+00032a e330
+00032b df99
+00032c 913f                      	DispSendDataI '0'
+00032d 933f
+00032e e43d
+00032f df95
+000330 913f                      	DispSendDataI 'M'
+000331 933f
+000332 e331
+000333 df91
+000334 913f                      	DispSendDataI '1'
+                                 
+000335 933f
+000336 e43d
+000337 df8d
+000338 913f                      	DispSendDataI 'M'
+000339 933f
+00033a e332
+00033b df89
+00033c 913f                      	DispSendDataI '2'
+00033d 933f
+00033e e43d
+00033f df85
+000340 913f                      	DispSendDataI 'M'
+000341 933f
+000342 e333
+000343 df81
+000344 913f                      	DispSendDataI '3'
+                                 
+000345 933f
+000346 e43d
+000347 df7d
+000348 913f                      	DispSendDataI 'M'
+000349 933f
+00034a e334
+00034b df79
+00034c 913f                      	DispSendDataI '4'
+00034d 933f
+00034e e43d
+00034f df75
+000350 913f                      	DispSendDataI 'M'
+000351 933f
+000352 e335
+000353 df71
+000354 913f                      	DispSendDataI '5'
+                                 
+000355 933f
+000356 e43d
+000357 df6d
+000358 913f                      	DispSendDataI 'M'
+000359 933f
+00035a e336
+00035b df69
+00035c 913f                      	DispSendDataI '6'
+                                 
+00035d 933f
+00035e ec30
+00035f df95
+000360 913f                      	DispSendComndi 0xC0
+                                 
+000361 933f
+000362 e230
+000363 df61
+000364 913f                      	DispSendDataI ' '
+000365 b330                      	in dispDataReg,WatPin
+000366 7031                      	andi dispDataReg,0b00000001
+000367 5d30                      	subi dispDataReg,-48
+000368 df5c                      	rcall DispSendData
+                                 
+                                 
+                                 
+000369 933f
+00036a e230
+00036b df59
+00036c 913f                      		DispSendDataI ' '
+00036d b330                      	in dispDataReg,WatPin
+00036e 7032                      	andi dispDataReg,0b00000010
+00036f 9536                      	lsr dispDataReg
+000370 5d30                      	subi dispDataReg,-48 
+000371 df53                      	rcall DispSendData
+                                 
+000372 933f
+000373 e230
+000374 df50
+000375 913f                      		DispSendDataI ' '
+000376 b330                      	in dispDataReg,WatPin
+000377 7034                      	andi dispDataReg,0b00000100
+000378 9536                      	lsr dispDataReg
+000379 9536                      	lsr dispDataReg
+00037a 5d30                      	subi dispDataReg,-48 
+00037b df49                      	rcall DispSendData
+                                 
+                                 
+                                 
+00037c 933f
+00037d e230
+00037e df46
+00037f 913f                      		DispSendDataI ' '
+000380 b330                      	in dispDataReg,WatPin
+000381 7038                      	andi dispDataReg,0b00001000
+000382 9536                      	lsr dispDataReg
+000383 9536                      	lsr dispDataReg
+000384 9536                      	lsr dispDataReg
+000385 5d30                      	subi dispDataReg,-48 
+000386 df3e                      	rcall DispSendData
+                                 
+000387 933f
+000388 e230
+000389 df3b
+00038a 913f                      		DispSendDataI ' '
+00038b b330                      	in dispDataReg,WatPin
+00038c 7130                      	andi dispDataReg,0b00010000
+00038d 9532                      	swap dispDataReg
+00038e 5d30                      	subi dispDataReg,-48 
+00038f df35                      	rcall DispSendData
+                                 
+000390 933f
+000391 e230
+000392 df32
+000393 913f                      		DispSendDataI ' '
+000394 b330                      	in dispDataReg,WatPin
+000395 7230                      	andi dispDataReg,0b00100000
+000396 9532                      	swap dispDataReg
+000397 9536                      	lsr dispDataReg
+000398 5d30                      	subi dispDataReg,-48 
+000399 df2b                      	rcall DispSendData
+                                 		
+                                 		
+00039a 933f
+00039b e230
+00039c df28
+00039d 913f                      		DispSendDataI ' '
+00039e b330                      	in dispDataReg,WatPin
+00039f 7430                      	andi dispDataReg,0b01000000
+0003a0 9532                      	swap dispDataReg
+0003a1 9536                      	lsr dispDataReg
+0003a2 5d30                      	subi dispDataReg,-48 
+0003a3 df21                      	rcall DispSendData
+                                 
+                                 
+                                 
+                                  
+0003a4 9508                      	ret
+                                 ;===========================================
+                                 
+                                 ShowSetMenu:
+0003a5 9160 0067                 lds SysReg1,scrPos
+0003a7 9180 0066                 lds SysReg3,curPos
+0003a9 3066                      cpi SysReg1,6
+0003aa f008                      brcs ShowSetMenuIsland
+0003ab c001                      rjmp ShowSetMenuScrMore5
+                                 ShowSetMenuIsland:
+0003ac c06e                      rjmp ShowSetMenuScrLow6
+                                 
+                                 
+                                 ShowSetMenuScrMore5:
+0003ad 3066                      cpi SysReg1,6
+0003ae f009                      breq ShowSetMenuScr6
+0003af f589                      brne ShowSetMenuScr7
+                                 
+                                 ShowSetMenuScr6:
+0003b0 1768                      				cp SysReg1,SysReg3
+0003b1 f029                      				breq ShowSetMenuScr6IsL1
+0003b2 933f
+0003b3 e230
+0003b4 df10
+0003b5 913f                      										DispSendDataI ' '
+0003b6 c005                      										rjmp ShowSetMenuScrDrowL1
+                                 										ShowSetMenuScr6IsL1:
+0003b7 933f
+0003b8 e33e
+0003b9 df0b
+0003ba 913f                      										DispSendDataI '>'
+                                 										ShowSetMenuScr6NotL1:
+0003bb c000                      										rjmp ShowSetMenuScrDrowL1
+                                 				ShowSetMenuScrDrowL1:
+0003bc 933f
+0003bd e43d
+0003be df06
+0003bf 913f                      				DispSendDataI 'M'
+0003c0 933f
+0003c1 e336
+0003c2 df02
+0003c3 913f                      				DispSendDataI '6'
+0003c4 933f
+0003c5 ec30
+0003c6 df2e
+0003c7 913f                      				DispSendComndi 0xC0
+0003c8 1768                      					cp SysReg1,SysReg3
+0003c9 f429                      					brne ShowSetMenuScr6IsL2
+                                 										ShowSetMenuScr6NotL2:
+0003ca 933f
+0003cb e230
+0003cc def8
+0003cd 913f                      										DispSendDataI ' '
+0003ce c005                      										rjmp ShowSetMenuScrDrowL2
+                                 										ShowSetMenuScr6IsL2:
+0003cf 933f
+0003d0 e33e
+0003d1 def3
+0003d2 913f                      										DispSendDataI '>'
+0003d3 c000                      										rjmp ShowSetMenuScrDrowL2
+                                 				ShowSetMenuScrDrowL2:
+0003d4 933f
+0003d5 e537
+0003d6 deee
+0003d7 913f                      				DispSendDataI 'W'
+0003d8 933f
+0003d9 e33a
+0003da deea
+0003db 913f                      				DispSendDataI ':'
+                                 
+0003dc 9130 0065                 				lds DispDataReg,WisOn
+0003de 5d30                      				subi DispDataReg,-48
+0003df dee5                      				rcall DispSendData
+                                 
+0003e0 c068                      				rjmp ShowSetMenuEnd
+                                 
+                                 ShowSetMenuScr7:
+                                 
+0003e1 1768                      				cp SysReg1,SysReg3
+0003e2 f029                      				breq ShowSetMenuScr7IsL1
+0003e3 933f
+0003e4 e230
+0003e5 dedf
+0003e6 913f                      										DispSendDataI ' '
+0003e7 c005                      										rjmp ShowSetMenuScr7DrowL1
+                                 										ShowSetMenuScr7IsL1:
+0003e8 933f
+0003e9 e33e
+0003ea deda
+0003eb 913f                      										DispSendDataI '>'
+0003ec c000                      										rjmp ShowSetMenuScr7DrowL1
+                                 				ShowSetMenuScr7DrowL1:
+0003ed 933f
+0003ee e537
+0003ef ded5
+0003f0 913f                      				DispSendDataI 'W'
+0003f1 933f
+0003f2 e33a
+0003f3 ded1
+0003f4 913f                      				DispSendDataI ':'
+                                 
+0003f5 9130 0065                 				lds DispDataReg,WisOn
+0003f7 5d30                      				subi DispDataReg,-48
+0003f8 decc                      				rcall DispSendData
+0003f9 933f
+0003fa ec30
+0003fb def9
+0003fc 913f                      				DispSendComndi 0xC0
+                                 
+0003fd 1768                      					cp SysReg1,SysReg3
+0003fe f429                      					brne ShowSetMenuScr7IsL2
+0003ff 933f
+000400 e230
+000401 dec3
+000402 913f                      										DispSendDataI ' '
+000403 c005                      										rjmp ShowSetMenuScr7DrowL2
+                                 										ShowSetMenuScr7IsL2:
+000404 933f
+000405 e33e
+000406 debe
+000407 913f                      										DispSendDataI '>'
+000408 c000                      										rjmp ShowSetMenuScr7DrowL2
+                                 				ShowSetMenuScr7DrowL2:
+000409 933f
+00040a e435
+00040b deb9
+00040c 913f                      				DispSendDataI 'E'
+00040d 933f
+00040e e738
+00040f deb5
+000410 913f                      				DispSendDataI 'x'
+000411 933f
+000412 e639
+000413 deb1
+000414 913f                      				DispSendDataI 'i'
+000415 933f
+000416 e734
+000417 dead
+000418 913f                      				DispSendDataI 't'
+                                 
+000419 c02f                      				rjmp ShowSetMenuEnd
+                                 
+                                 
+                                 
+                                 
+                                 
+00041a c02e                      rjmp ShowSetMenuEnd
+                                 
+                                 
+                                 
+                                 ShowSetMenuScrLow6:
+00041b 1768                      cp SysReg1,SysReg3
+00041c f029                      breq ShowSetMenuIsL1
+00041d 933f
+00041e e230
+00041f dea5
+000420 913f                      						DispSendDataI ' '
+000421 c005                      						rjmp ShowSetMenuDrowL1
+                                 						ShowSetMenuIsL1:
+000422 933f
+000423 e33e
+000424 dea0
+000425 913f                      						DispSendDataI '>'
+000426 c000                      						rjmp ShowSetMenuDrowL1
+                                 
+                                 
+                                 ShowSetMenuDrowL1:
+000427 933f
+000428 e43d
+000429 de9b
+00042a 913f                      DispSendDataI 'M'
+00042b 2f76                      mov SysReg2,SysReg1
+00042c 5d70                      subi SysReg2,-48
+00042d 2f37                      mov DispDataReg,SysReg2
+00042e de96                      rcall DispSendData
+                                 
+00042f 933f
+000430 ec30
+000431 dec3
+000432 913f                      DispSendComndi 0xC0
+000433 c000                      rjmp ShowSetMenuLine2
+                                 
+                                 
+                                 
+                                 ShowSetMenuLine2:
+000434 1768                      cp SysReg1,SysReg3
+000435 f429                      brne ShowSetMenuIsL2
+000436 933f
+000437 e230
+000438 de8c
+000439 913f                      						DispSendDataI ' '
+00043a c005                      						rjmp ShowSetMenuDrowL2
+                                 						ShowSetMenuIsL2:
+00043b 933f
+00043c e33e
+00043d de87
+00043e 913f                      						DispSendDataI '>'
+00043f c000                      						rjmp ShowSetMenuDrowL2
+                                 
+                                 ShowSetMenuDrowL2:
+                                 
+000440 933f
+000441 e43d
+000442 de82
+000443 913f                      DispSendDataI 'M'
+000444 2f76                      mov SysReg2,SysReg1
+000445 5c7f                      subi SysReg2,-49
+000446 2f37                      mov DispDataReg,SysReg2
+000447 de7d                      rcall DispSendData
+000448 c000                      rjmp ShowSetMenuend
+                                 
+                                 
+                                 
+                                 ShowSetMenuend:
+000449 9508                      ret
+                                 
+                                 
+                                 ;===========================================
+                                 ShowM0:
+                                 
+00044a 933f
+00044b e43d
+00044c de78
+00044d 913f                      	DispSendDataI 'M'
+00044e 933f
+00044f e330
+000450 de74
+000451 913f                      	DispSendDataI '0'
+000452 933f
+000453 e230
+000454 de70
+000455 913f                      	DispSendDataI ' '
+000456 933f
+000457 e230
+000458 de6c
+000459 913f                      	DispSendDataI ' '
+00045a 933f
+00045b e534
+00045c de68
+00045d 913f                      	DispSendDataI 'T'
+00045e 933f
+00045f e331
+000460 de64
+000461 913f                      	DispSendDataI '1'
+000462 933f
+000463 e33d
+000464 de60
+000465 913f                      	DispSendDataI '='
+                                 
+                                 	;если Т1 выбрано отображаю temp , в.п.с. Т1
+                                 
+                                 						ShowM0T1sel:
+000466 e0a2
+000467 e0b3                      							wordToTime temp ;получаю значения XL минут XH часов
+000468 5da0
+000469 e0e6
+00046a e0f9
+00046b 2fe3
+00046c de58
+00046d 2ff3
+00046e de56
+00046f 933f
+000470 e638
+000471 de53
+000472 913f
+000473 5db0
+000474 e0e6
+000475 e0f9
+000476 2fe3
+000477 de4d
+000478 2ff3
+000479 de4b
+00047a 933f
+00047b e63d
+00047c de48
+00047d 913f                      							DispSendTime
+00047e c019                      							rjmp ShowM0W
+                                 						ShowM0T1notsel:
+00047f e0a2
+000480 e0b3                      							wordToTime T1 ;получаю значения XL минут XH часов
+000481 5da0
+000482 e0e6
+000483 e0f9
+000484 2fe3
+000485 de3f
+000486 2ff3
+000487 de3d
+000488 933f
+000489 e638
+00048a de3a
+00048b 913f
+00048c 5db0
+00048d e0e6
+00048e e0f9
+00048f 2fe3
+000490 de34
+000491 2ff3
+000492 de32
+000493 933f
+000494 e63d
+000495 de2f
+000496 913f                      							DispSendTime
+000497 c000                      							rjmp ShowM0W
+                                 
+                                 
+                                 ShowM0W:
+000498 933f
+000499 ec30
+00049a de5a
+00049b 913f                      	DispSendComndi 0xC0
+00049c 933f
+00049d e537
+00049e de26
+00049f 913f                      	DispSendDataI 'W'
+0004a0 933f
+0004a1 e33a
+0004a2 de22
+0004a3 913f                      	DispSendDataI ':'
+                                 
+                                 	;если W выбрано отображаю temp , в.п.с. WCR.b
+                                 						ShowM0Wsel:
+0004a4 e0a2
+0004a5 e0b3                      							wordToTime temp ;получаю значения XL минут XH часов
+0004a6 e465                      							getBitmem temp,0
+0004a7 2f63
+0004a8 de1c                      							DispSendDataR SysReg1
+0004a9 c004                      							rjmp ShowM0T2
+                                 
+                                 						ShowM0Wnotsel:
+0004aa e465                      							getBitmem WCR,0
+0004ab 2f63
+0004ac de18                      							DispSendDataR SysReg1
+0004ad c000                      							rjmp ShowM0T2
+                                 ShowM0T2:
+0004ae 933f
+0004af e230
+0004b0 de14
+0004b1 913f                      	DispSendDataI ' '
+0004b2 933f
+0004b3 e534
+0004b4 de10
+0004b5 913f                      	DispSendDataI 'T'
+0004b6 933f
+0004b7 e332
+0004b8 de0c
+0004b9 913f                      	DispSendDataI '2'
+0004ba 933f
+0004bb e33d
+0004bc de08
+0004bd 913f                      	DispSendDataI '='
+                                 
+                                 	;если Т2 выбрано отображаю temp , в.п.с. Т2
+                                 
+                                 						ShowM0T2sel:
+0004be e0a2
+0004bf e0b3                      							wordToTime temp ;получаю значения XL минут XH часов
+0004c0 5da0
+0004c1 e0e6
+0004c2 e0f9
+0004c3 2fe3
+0004c4 de00
+0004c5 2ff3
+0004c6 ddfe
+0004c7 933f
+0004c8 e638
+0004c9 ddfb
+0004ca 913f
+0004cb 5db0
+0004cc e0e6
+0004cd e0f9
+0004ce 2fe3
+0004cf ddf5
+0004d0 2ff3
+0004d1 ddf3
+0004d2 933f
+0004d3 e63d
+0004d4 ddf0
+0004d5 913f                      							DispSendTime
+0004d6 c019                      							rjmp ShowM0End
+                                 						ShowM0T2notsel:
+0004d7 e0a2
+0004d8 e0b3                      							wordToTime T1 ;получаю значения XL минут XH часов
+0004d9 5da0
+0004da e0e6
+0004db e0f9
+0004dc 2fe3
+0004dd dde7
+0004de 2ff3
+0004df dde5
+0004e0 933f
+0004e1 e638
+0004e2 dde2
+0004e3 913f
+0004e4 5db0
+0004e5 e0e6
+0004e6 e0f9
+0004e7 2fe3
+0004e8 dddc
+0004e9 2ff3
+0004ea ddda
+0004eb 933f
+0004ec e63d
+0004ed ddd7
+0004ee 913f                      							DispSendTime
+0004ef c000                      							rjmp ShowM0End
+                                 
+                                 ShowM0End:
+                                 
+0004f0 9130 0066                 lds DispDataReg,curPos
+0004f2 5d30
+0004f3 e0e6
+0004f4 e0f9                      hexToAscii DispDataReg
+0004f5 ddcf                      rcall DispSendData
+                                 
+0004f6 9130 0064                 lds DispDataReg,Selected
+0004f8 5d30
+0004f9 e0e6
+0004fa e0f9                      hexToAscii DispDataReg
+0004fb ddc9                      rcall DispSendData
+0004fc 9508                      ret
+                                 
+                                 ShowM1:
+0004fd 933f
+0004fe e439
+0004ff ddc5
+000500 913f                      	DispSendDataI 'I'
+000501 933f
+000502 e63e
+000503 ddc1
+000504 913f                      	DispSendDataI 'n'
+000505 933f
+000506 e43d
+000507 ddbd
+000508 913f                      	DispSendDataI 'M'
+000509 933f
+00050a e331
+00050b ddb9
+00050c 913f                      	DispSendDataI '1'
+00050d 9508                      	ret
+                                 ;===========================================
+                                 ShowM2:
+00050e 933f
+00050f e439
+000510 ddb4
+000511 913f                      	DispSendDataI 'I'
+000512 933f
+000513 e63e
+000514 ddb0
+000515 913f                      	DispSendDataI 'n'
+000516 933f
+000517 e43d
+000518 ddac
+000519 913f                      	DispSendDataI 'M'
+00051a 933f
+00051b e332
+00051c dda8
+00051d 913f                      	DispSendDataI '2'
+00051e 9508                      	ret
+                                 ;===========================================
+                                 ShowM3:
+00051f 933f
+000520 e439
+000521 dda3
+000522 913f                      	DispSendDataI 'I'
+000523 933f
+000524 e63e
+000525 dd9f
+000526 913f                      	DispSendDataI 'n'
+000527 933f
+000528 e43d
+000529 dd9b
+00052a 913f                      	DispSendDataI 'M'
+00052b 933f
+00052c e333
+00052d dd97
+00052e 913f                      	DispSendDataI '3'
+00052f 9508                      	ret
+                                 ;===========================================
+                                 ShowM4:
+000530 933f
+000531 e439
+000532 dd92
+000533 913f                      	DispSendDataI 'I'
+000534 933f
+000535 e63e
+000536 dd8e
+000537 913f                      	DispSendDataI 'n'
+000538 933f
+000539 e43d
+00053a dd8a
+00053b 913f                      	DispSendDataI 'M'
+00053c 933f
+00053d e334
+00053e dd86
+00053f 913f                      	DispSendDataI '4'
+000540 9508                      	ret
+                                 ;===========================================
+                                 ShowM5:
+000541 933f
+000542 e439
+000543 dd81
+000544 913f                      	DispSendDataI 'I'
+000545 933f
+000546 e63e
+000547 dd7d
+000548 913f                      	DispSendDataI 'n'
+000549 933f
+00054a e43d
+00054b dd79
+00054c 913f                      	DispSendDataI 'M'
+00054d 933f
+00054e e335
+00054f dd75
+000550 913f                      	DispSendDataI '5'	
+000551 9508                      	ret
+                                 ;===========================================
+                                 ShowM6:
+000552 933f
+000553 e439
+000554 dd70
+000555 913f                      	DispSendDataI 'I'
+000556 933f
+000557 e63e
+000558 dd6c
+000559 913f                      	DispSendDataI 'n'
+00055a 933f
+00055b e43d
+00055c dd68
+00055d 913f                      	DispSendDataI 'M'
+00055e 933f
+00055f e336
+000560 dd64
+000561 913f                      	DispSendDataI '6'	
+000562 9508                      	ret
+                                 ;===========================================
+                                 ShowW:
+                                 
+000563 933f
+000564 e439
+000565 dd5f
+000566 913f                      	DispSendDataI 'I'
+000567 933f
+000568 e63e
+000569 dd5b
+00056a 913f                      	DispSendDataI 'n'
+00056b 933f
+00056c e537
+00056d dd57
+00056e 913f                      	DispSendDataI 'W'
+00056f 9508                      	ret
+                                 ;========================================================================================================================================================================
+                                 ;========================================================================================================================================================================
+                                 ;========================================================================================================================================================================
+                                 ;Обработка при нажатии в разных меню
+                                 BInMainMenu:
+000570 e060
+000571 9360 0066                 	stsi curPos,0
+000573 e060
+000574 9360 0067                 	stsi scrPos,0
+000576 e068
+000577 9360 0068                 	stsi curMax,8
+000579 e041                      	ldi CurrentWindow,1
+00057a 9508                      	ret
+                                 ;===========================================
+                                 BInSetMenu:
+00057b 9160 0066                 	lds SysReg1,curPos
+00057d e000
+00057e 2f16
+00057f 0f11
+000580 e2e7
+000581 e0f0
+000582 0fee
+000583 1fff
+000584 0fe1
+000585 1ff0
+000586 91a5
+000587 91b4
+000588 2fea
+000589 2ffb                      	getAddr BSetMenuList,SysReg1
+00058a 9509                      	icall
+00058b 9508                      	ret
+                                 
+                                 ;===========================================
+                                 BInM0:
+00058c 9160 0064                 	lds SysReg1,Selected
+00058e 3061                      	cpi SysReg1,1
+00058f f441                      	brne BInM0NoSelecting
+                                 						BInM0Selecting:
+000590 e060
+000591 9360 0064                 						stsi Selected,0
+                                 						;ДОПИСАТЬ ЗАПИСЬ В НУЖНУЮ ПЕРЕМЕНУЮ**
+000593 91e0 0062                 						lds ZL,tempAddr
+000595 91f0 0063                 						lds ZH,tempAddr+1
+                                 
+                                 
+                                 
+000597 c034                      						rjmp BInM0End
+                                 
+                                 
+                                 
+                                 						BInM0NoSelecting:				
+000598 9160 0066                 						lds SysReg1,curPos
+00059a 3060                      						cpi SysReg1,0
+00059b f031                      						breq BInM0T1
+00059c 3061                      						cpi SysReg1,1
+00059d f071                      						breq BInM0T2
+00059e 3062                      						cpi SysReg1,2
+00059f f0b1                      						breq BInM0W
+0005a0 3063                      						cpi SysReg1,3
+0005a1 f0f1                      						breq BInM0Exit
+                                 
+                                 											BInM0T1:
+0005a2 e061
+0005a3 9360 0064                 											stsi Selected,1
+                                 										
+0005a5 e861
+0005a6 9360 0062                 											stsi tempAddr,	low(T1)
+0005a8 e060
+0005a9 9360 0063                 											stsi tempAddr+1,high(T1)
+                                 											;lds temp,T1
+                                 											;lds temp,T1+1
+                                 
+                                 
+0005ab c020                      											rjmp BInM0End
+                                 
+                                 
+                                 
+                                 											BInM0T2:
+0005ac e061
+0005ad 9360 0064                 											stsi Selected,1
+0005af e86f
+0005b0 9360 0062                 											stsi tempAddr,	low(T2)
+0005b2 e060
+0005b3 9360 0063                 											stsi tempAddr+1,high(T2)
+                                 											;lds temp,T2
+                                 											;lds temp,T2+1
+0005b5 c016                      											rjmp BInM0End
+                                 
+                                 											BInM0W:
+0005b6 e061
+0005b7 9360 0064                 											stsi Selected,1
+0005b9 e66f
+0005ba 9360 0062                 											stsi tempAddr,	low(WCR)
+0005bc e060
+0005bd 9360 0063                 											stsi tempAddr+1,high(WCR)
+0005bf c00c                      											rjmp BInM0End
+                                 
+                                 											BInM0Exit:
+0005c0 e041                      											ldi CurrentWindow,1
+0005c1 e060
+0005c2 9360 0066
+0005c4 e060
+0005c5 9360 0067
+0005c7 e068
+0005c8 9360 0068                 											InitSetWindowSet
+0005ca c001                      											rjmp BInM0End
+                                 
+0005cb c000                      						rjmp BInM0End
+                                 
+                                 
+                                 
+                                 
+                                 BInM0End:
+0005cc 9508                      ret
+                                 ;===========================================
+                                 BInM1:
+0005cd e041                      ldi CurrentWindow,1
+0005ce 9508                      ret
+                                 ;===========================================
+                                 BInM2:
+0005cf e041                      ldi CurrentWindow,1
+0005d0 9508                      ret
+                                 ;===========================================
+                                 BInM3:
+0005d1 e041                      ldi CurrentWindow,1
+0005d2 9508                      ret
+                                 ;===========================================
+                                 BInM4:
+0005d3 e041                      ldi CurrentWindow,1
+0005d4 9508                      ret
+                                 ;===========================================
+                                 BInM5:
+0005d5 e041                      ldi CurrentWindow,1
+0005d6 9508                      ret
+                                 ;===========================================
+                                 BInM6:
+0005d7 e041                      ldi CurrentWindow,1
+0005d8 9508                      ret
+                                 ;===========================================
+                                 BInW:
+0005d9 e041                      ldi CurrentWindow,1
+0005da 9508                      ret
+                                 ;========================================================================================================================================================================
+                                 ;========================================================================================================================================================================
+                                 ;========================================================================================================================================================================
+                                 ;НАЖАТИЕ В SETMENU
+                                 SetCurWindowM0:
+0005db e060
+0005dc 9360 0066
+0005de e060
+0005df 9360 0067
+0005e1 e063
+0005e2 9360 0068                 InitMXWindowSet
+0005e4 e042                      ldi CurrentWindow,2
+0005e5 9508                      ret
+                                 ;===========================================
+                                 SetCurWindowM1:
+0005e6 e060
+0005e7 9360 0066
+0005e9 e060
+0005ea 9360 0067
+0005ec e063
+0005ed 9360 0068                 InitMXWindowSet
+0005ef e043                      ldi CurrentWindow,3
+0005f0 9508                      ret
+                                 ;===========================================
+                                 SetCurWindowM2:
+0005f1 e060
+0005f2 9360 0066
+0005f4 e060
+0005f5 9360 0067
+0005f7 e063
+0005f8 9360 0068                 InitMXWindowSet
+0005fa e044                      ldi CurrentWindow,4
+0005fb 9508                      ret
+                                 ;===========================================
+                                 SetCurWindowM3:
+0005fc e060
+0005fd 9360 0066
+0005ff e060
+000600 9360 0067
+000602 e063
+000603 9360 0068                 InitMXWindowSet
+000605 e045                      ldi CurrentWindow,5
+000606 9508                      ret
+                                 ;===========================================
+                                 SetCurWindowM4:
+000607 e060
+000608 9360 0066
+00060a e060
+00060b 9360 0067
+00060d e063
+00060e 9360 0068                 InitMXWindowSet
+000610 e046                      ldi CurrentWindow,6
+000611 9508                      ret
+                                 ;===========================================
+                                 SetCurWindowM5:
+000612 e060
+000613 9360 0066
+000615 e060
+000616 9360 0067
+000618 e063
+000619 9360 0068                 InitMXWindowSet
+00061b e047                      ldi CurrentWindow,7
+00061c 9508                      ret
+                                 ;===========================================
+                                 SetCurWindowM6:
+00061d e060
+00061e 9360 0066
+000620 e060
+000621 9360 0067
+000623 e063
+000624 9360 0068                 InitMXWindowSet
+000626 e048                      ldi CurrentWindow,8
+000627 9508                      ret
+                                 ;===========================================
+                                 SetCurWindowW:
+000628 e060
+000629 9360 0066
+00062b e060
+00062c 9360 0067
+00062e e061
+00062f 9360 0068                 InitWWindowSet
+000631 e049                      ldi CurrentWindow,9
+000632 9508                      ret
+                                 ;===========================================
+                                 SetCurWindowMain:
+000633 e040                      ldi CurrentWindow,0
+000634 9508                      ret
+                                 ;========================================================================================================================================================================
+                                 ;========================================================================================================================================================================
+
+
+RESOURCE USE INFORMATION
+------------------------
+
+Notice:
+The register and instruction counts are symbol table hit counts,
+and hence implicitly used resources are not counted, eg, the
+'lpm' instruction without operands implicitly uses r0 and z,
+none of which are counted.
+
+x,y,z are separate entities in the symbol table and are
+counted separately from r26..r31 here.
+
+.dseg memory usage only counts static data declared with .byte
+
+"ATmega8A" register use summary:
+x  :   0 y  :   0 z  :   7 r0 :   1 r1 :   2 r2 :   1 r3 :   2 r4 :   1 
+r5 :   1 r6 :   1 r7 :   1 r8 :   1 r9 :   1 r10:   1 r11:   1 r12:   1 
+r13:   1 r14:   1 r15:   1 r16:   8 r17:  15 r18:   5 r19: 377 r20:  23 
+r21:  28 r22: 335 r23:  71 r24:  78 r25:  40 r26:  36 r27:  33 r28:   0 
+r29:   0 r30:  33 r31:  33 
+Registers used: 31 out of 35 (88.6%)
+
+"ATmega8A" instruction use summary:
+.lds  :   0 .sts  :   0 adc   :  12 add   :  11 adiw  :   0 and   :   0 
+andi  :  26 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+brcc  :   6 brcs  :   7 breq  :  21 brge  :   0 brhc  :   0 brhs  :   0 
+brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 brne  :  27 
+brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 brvs  :   0 
+bset  :   0 bst   :   0 cbi   :   4 cbr   :   0 clc   :   0 clh   :   0 
+cli   :   0 cln   :   0 clr   :  41 cls   :   0 clt   :   0 clv   :   0 
+clz   :   0 com   :   0 cp    :   9 cpc   :   0 cpi   :  41 cpse  :   0 
+dec   :   2 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   3 
+ijmp  :   0 in    :  11 inc   :   2 ld    :   0 ldd   :   0 ldi   : 255 
+lds   :  48 lpm   :   9 lsl   :  14 lsr   :   8 mov   :  38 movw  :   0 
+mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   4 or    :   0 
+ori   :  13 out   :  21 pop   : 175 push  : 175 rcall : 138 ret   :  34 
+reti  :  18 rjmp  :  87 rol   :   3 ror   :   0 sbc   :   1 sbci  :  12 
+sbi   :   4 sbic  :   2 sbis  :   7 sbiw  :   0 sbr   :   0 sbrc  :   8 
+sbrs  :   3 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   0 
+ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
+st    :   1 std   :   0 sts   :  89 sub   :   2 subi  :  28 swap  :   5 
+tst   :   0 wdr   :   0 
+Instructions used: 44 out of 110 (40.0%)
+
+"ATmega8A" memory use summary [bytes]:
+Segment   Begin    End      Code   Data   Used    Size   Use%
+---------------------------------------------------------------
+[.cseg] 0x000000 0x000c6a   3120     58   3178    8192  38.8%
+[.dseg] 0x000060 0x00009d      0     61     61    1024   6.0%
+[.eseg] 0x000000 0x000000      0      0      0     512   0.0%
+
+Assembly complete, 0 errors, 0 warnings

@@ -1,0 +1,56 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega8A"</DEVICE>
+ <WORKING_DIR>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\avrasm\inc\m8adef.inc</FILE>
+  <FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Defines.inc</FILE>
+  <FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Macro.inc</FILE>
+  <FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Display.inc</FILE>
+  <FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Encoder.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\Debug\AssemblerApplication4.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>AssemblerApplication4.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>AssemblerApplication4.map</FILE>
+  <FILE>AssemblerApplication4.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <BWT><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>10</LINE></BWT>
+  <EWT><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>11</LINE></EWT>
+  <DWT><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>12</LINE></DWT>
+  <init><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>82</LINE></init>
+  <timer><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>43</LINE></timer>
+  <MenuList><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>41</LINE></MenuList>
+  <ShowMainMenu><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>231</LINE></ShowMainMenu>
+  <ShowSetMenu><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>309</LINE></ShowSetMenu>
+  <ShowM0><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>314</LINE></ShowM0>
+  <ShowM1><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>318</LINE></ShowM1>
+  <ShowM2><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>322</LINE></ShowM2>
+  <ShowM3><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>326</LINE></ShowM3>
+  <ShowM4><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>330</LINE></ShowM4>
+  <ShowM5><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>333</LINE></ShowM5>
+  <ShowM6><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>337</LINE></ShowM6>
+  <ShowM7><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>341</LINE></ShowM7>
+  <TNext1><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>58</LINE></TNext1>
+  <TNext2><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>64</LINE></TNext2>
+  <DispSendComnd><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>202</LINE></DispSendComnd>
+  <main><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>95</LINE></main>
+  <DispRefresh><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>122</LINE></DispRefresh>
+  <TurnLeft><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>148</LINE></TurnLeft>
+  <TurnRight><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>153</LINE></TurnRight>
+  <ButtonClick><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>158</LINE></ButtonClick>
+  <DispSendData><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>169</LINE></DispSendData>
+  <end><FILE>C:\Users\steam\Documents\Atmel Studio\7.0\AssemblerApplication4\AssemblerApplication4\main.asm</FILE><LINE>165</LINE></end>
+ </LABELS>
+</ASSEMBLER_INFO>
