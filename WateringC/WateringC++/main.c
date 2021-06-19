@@ -4,22 +4,36 @@
  * Created: 09.06.2021 00:22:14
  * Author : steam
  */ 
+#define F_CPU 8000000UL
+#define DispPort PORTC
 
 #include <avr/io.h>
-volatile int i=0;
+#include <util/delay.h>
+
+
+
+
+void LCD_sendcomnd(unsigned char cmnd){
+	unsigned char temp;
+	temp=cmnd;
+	temp=temp&0b11110000;
+	temp=temp>>4;
+}
+void PortInit(){
+	DDRC=0xFF;
+	DispPort=0;
+}
 
 int main(void)
 {
-    /* Replace with your application code */
+    PortInit();
+	
+	
+	
+	
     while (1) 
     {
 		if(1){
-			
-			PORTC=0<<4;
-			PORTC=1<<4;
-						PORTC=1<<4;
-									PORTC=1<<4;			PORTC=1<<4;
-			i++;
 		}
     }
 }
